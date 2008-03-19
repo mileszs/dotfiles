@@ -1,0 +1,16 @@
+#
+# Initiate a screen session with my
+# preferred dev environment
+#
+
+source /home/mileszs/.screenrc
+
+screen -t dev 0 
+split 
+resize 40
+focus down
+screen -t server 1 script/server
+focus top
+screen -t console 2 script/console
+screen -t misc 3
+select 0

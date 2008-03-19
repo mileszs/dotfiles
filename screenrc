@@ -1,0 +1,38 @@
+#
+# ~/.screenrc
+#
+
+# Author:         Aaron Schaefer <aaron@elasticdog.com>
+# Created:        Sat 05 Aug 2006 06:38:47 PM EDT
+# Last Modified:  Wed 30 Aug 2006 11:25:57 PM EDT
+#
+# Settings used to initialize screen sessions
+
+# Change default escape sequence from C-a to a backslash
+#  escape ``                            # default ^Aa
+
+# Do not display the copyright page
+  startup_message off                  # default: on
+
+# Change the number of scrollback lines
+  defscrollback 1000                   # default: 100
+
+# Ensure the default shell is the same as the $SHELL environment variable
+  shell -$SHELL
+
+# Make navigating between regions easier
+  bind s split
+  bind j focus down
+  bind k focus up
+
+# Make resizing regions easier
+  bind = resize =
+  bind + resize +1
+  bind - resize -1
+
+# Configure status bar at the bottom of the terminal
+  hardstatus alwayslastline 
+  hardstatus string "%{= kb}[ %=%{w}%?%-Lw%?%{C}(%{W}%n*%f %t%?(%u)%?%{C})%{w}%?%+Lw%?%?%= %{b}][%{C} %Y.%m.%d %{W}%0c %{b}]"
+
+
+# End of file
