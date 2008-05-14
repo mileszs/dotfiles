@@ -10,6 +10,9 @@ set expandtab
 set smarttab
 set smartindent
 
+" Backspace
+set backspace=indent,eol,start
+
 " Breifly show matching brace/parenthese/bracket
 set showmatch
 
