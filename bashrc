@@ -13,7 +13,7 @@ fi
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 # set the default editor
-export EDITOR=vim
+export EDITOR=/usr/local/bin/vim
 # For ODBC stuff
 export ODBCINI=/etc/
 export ODBCSYSINI=/etc/
