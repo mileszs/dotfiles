@@ -29,4 +29,4 @@ alias local_ports='sudo nmap -sT -O localhost'
 # my personal default options when using pwsafe
 alias pwsf='sudo pwsafe -upE -f'
 # start screen with the rails config file
-alias rails-screen='screen -c ~/.rails.screen'
+alias railscr='screen -c ~/.rails.screen'

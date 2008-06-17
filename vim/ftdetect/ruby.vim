@@ -7,8 +7,14 @@ au BufNewFile,BufRead *.builder,*.rxml,*.rjs		set filetype=ruby
 " Rakefile
 au BufNewFile,BufRead [rR]akefile,*.rake		set filetype=ruby
 
+" Sake
+au BufNewFile,BufRead [sS]akefile,*.sake		set filetype=ruby
+
 " Rantfile
 au BufNewFile,BufRead [rR]antfile,*.rant		set filetype=ruby
 
 " eRuby
 au BufNewFile,BufRead *.erb,*.rhtml			set filetype=eruby
+
+" Thor
+au BufNewFile,BufRead *.thor      set filetype=ruby
