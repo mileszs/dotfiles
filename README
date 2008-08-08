@@ -1,0 +1,11 @@
+I recommend fetching these to your home directory, like
+
+~/dotfiles
+
+then doing this for each file (from ~/)
+
+ln -s ~/dotfiles/bashrc .bashrc
+
+If you were to update, say, bashrc from another computer, and push it to GitHub, you could simply pull it back down from within ~/dotfiles.  
+
+Easy.
