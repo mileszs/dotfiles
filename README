@@ -1,11 +1,8 @@
-I recommend fetching these to your home directory, like
+As you can see, it's a bunch of configuration files.
 
-~/dotfiles
+To install:
 
-then doing this for each file (from ~/)
-
-ln -s ~/dotfiles/bashrc .bashrc
-
-If you were to update, say, bashrc from another computer, and push it to GitHub, you could simply pull it back down from within ~/dotfiles.  
-
-Easy.
+cd ~
+git clone git://github.com/mileszs/dotfiles.git
+cd dotfiles
+./install
