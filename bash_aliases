@@ -16,6 +16,12 @@ alias aptupd="sudo apt-get update"
 alias aptupg="sudo apt-get upgrade"
 alias aptupall="sudo apt-get update && sudo apt-get upgrade"
 
+# RubyGems
+alias gemu="sudo gem update"
+alias gemi="sudo gem install"
+alias gemun="sudo gem uninstall"
+alias gemus="sudo gem update --system"
+
 alias svim='sudo vim'
 alias apache='sudo /etc/init.d/apache2'
 # show sorted directory sizes for all directories
