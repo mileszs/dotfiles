@@ -9,9 +9,10 @@ screen -t dev 0
 split 
 resize 40
 focus down
-screen -t tail 1 tail -f log/development.log
+screen -t test 1
 focus top
 screen -t console 2 script/console
 screen -t server 3 thin start
-screen -t misc 4
+screen -t tail 4 tail -f log/development.log
+screen -t misc 5
 select 0

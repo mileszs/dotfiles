@@ -3868,6 +3868,11 @@ function! s:BufAbbreviations()
       "Rabbrev are(  assert_response
       Rabbrev asre( assert_response
       Rabbrev art(  assert_redirected_to
+      Rabbrev shra  should_require_attributes
+      Rabbrev shl   should_ensure_length_in_range
+      Rabbrev shhm  should_have_many
+      Rabbrev shbt  should_belong_to
+      Rabbrev shhbtm  should_have_and_belong_to_many
     endif
     Rabbrev :a    :action\ =>\ 
     inoreabbrev <buffer> <silent> :c <C-R>=<SID>TheMagicC()<CR>

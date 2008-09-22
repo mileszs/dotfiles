@@ -47,4 +47,8 @@ alias local_ports='sudo nmap -sT -O localhost'
 alias pwsf='sudo pwsafe -upE -f'
 
 # start screen with the rails config file
-alias railscr='screen -c ~/.rails.screen'
+alias scrails='screen -c ~/.rails.screen'
+
+function find_grep() {
+  find $1 -name $2 | xargs egrep -nC3 $3 | less
+}
