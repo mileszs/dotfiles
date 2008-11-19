@@ -49,6 +49,9 @@ alias pwsf='sudo pwsafe -upE -f'
 # start screen with the rails config file
 alias scrails='screen -c ~/.rails.screen'
 
+# start screen with the merb config file
+alias screrb='screen -c ~/.merb.screen'
+
 function find_grep() {
   find $1 -name $2 | xargs egrep -nC3 $3 | less
 }
