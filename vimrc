@@ -62,3 +62,15 @@ match WhitespaceErrors /\s\+$\|[^\t]\@<=\t\+/
 
 " Remove trailing whitespace
 noremap <silent> <Leader>rtw :%s/\s\+$//g<CR>``
+
+" Map F9 to set foldmethod to syntax
+map <F9> :set foldmethod=syntax<CR>
+
+" Use the mouse in terminal Vim!
+set mouse=a
+set ttymouse=xterm2
+
+" Swap ` and '.  ` is more useful in every situation
+" that I can imagine!
+noremap ' `
+noremap ` '
