@@ -1,0 +1,20 @@
+[user]
+  name = Miles Z. Sterrett
+  email = miles.sterrett@gmail.com
+
+[apply]
+  whitespace = strip
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+
+[alias]
+  st = status
+  d = diff
+  a = add
+
+[github]
+	user = mileszs
+	token = 9b0bc636d124a7f14b23c86df36064ac
