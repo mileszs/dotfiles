@@ -1,3 +1,9 @@
+" NOTE: You must, of course, install the ack script
+"       in your path.
+" On Ubuntu:
+"   sudo apt-get install ack-grep
+"   ln -s /usr/bin/ack-grep /usr/bin/ack
+"
 function! Ack(args)
     let grepprg_bak=&grepprg
     set grepprg=ack\ -H\ --nocolor\ --nogroup
