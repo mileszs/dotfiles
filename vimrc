@@ -67,8 +67,9 @@ noremap <silent> <Leader>rtw :%s/\s\+$//g<CR>``
 map <F9> :set foldmethod=syntax<CR>
 
 " Use the mouse in terminal Vim!
-set mouse=a
-set ttymouse=xterm2
+"set mouse=a
+"set ttymouse=xterm2
+" Honestly, they work fine.  I just hate them
 
 " Swap ` and '.  ` is more useful in every situation
 " that I can imagine!
