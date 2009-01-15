@@ -21,6 +21,10 @@ alias gemu="sudo gem update"
 alias gemi="sudo gem install"
 alias gemun="sudo gem uninstall"
 alias gemus="sudo gem update --system"
+# install or search for a similarly named gem
+function geminst() {
+  sudo gem install $1 || gem search $1 -r ;
+}
 
 alias svim='sudo vim'
 alias apache='sudo /etc/init.d/apache2'
