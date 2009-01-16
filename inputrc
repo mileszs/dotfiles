@@ -1,0 +1,4 @@
+set editing-mode vi
+set keymap vi
+set show-all-if-ambiguous on
+set completion-ignore-case on
