@@ -1,8 +1,0 @@
-As you can see, it's a bunch of configuration files.
-
-To install:
-
-cd ~
-git clone git://github.com/mileszs/dotfiles.git
-cd dotfiles
-./install
