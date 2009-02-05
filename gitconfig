@@ -11,9 +11,12 @@
   branch = auto
 
 [alias]
-  st = status
-  d = diff
-  a = add
+  st    = status
+  d     = diff
+  a     = add
+  ci    = commit
+  cia   = commit -a
+  co    = checkout
 
 [github]
 	user = mileszs
