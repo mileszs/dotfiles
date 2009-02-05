@@ -4,6 +4,7 @@ home = File.expand_path('~')
 
 Dir['*'].each do |file|
   next if file =~ /install/
+  next if file =~ /README/
   target = File.join(home, ".#{file}")
   next if File.exists?(target)
   `ln -s #{File.expand_path file} #{target}`
