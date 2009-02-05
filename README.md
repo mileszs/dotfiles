@@ -4,7 +4,7 @@ My collection of configuration files for Linux (bashrc, screenrc, etc.).  Most o
 
 ## Installation ##
 
-cd ~
-git clone git://github.com/mileszs/dotfiles.git
-cd dotfiles
-./install
+    cd ~
+    git clone git://github.com/mileszs/dotfiles.git
+    cd dotfiles
+    ./install
