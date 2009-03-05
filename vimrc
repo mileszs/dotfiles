@@ -75,3 +75,6 @@ map <F9> :set foldmethod=syntax<CR>
 " that I can imagine!
 noremap ' `
 noremap ` '
+
+" Take care of forgetting to use sudo with :w!!
+cmap w!! %!sudo tee > /dev/null %
