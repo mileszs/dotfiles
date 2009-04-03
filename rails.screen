@@ -9,7 +9,7 @@ screen -t dev 0
 split 
 resize 40
 focus down
-screen -t test 1 autotest
+screen -t test 1 autotest -f
 focus top
 screen -t console 2 script/console
 screen -t server 3 script/server thin
