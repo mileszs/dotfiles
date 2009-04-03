@@ -74,3 +74,6 @@ source ~/.bash/env.sh
 
 # functions
 source ~/.bash/funcs.sh
+
+# git completion!
+source ~/.git-completion.bash
