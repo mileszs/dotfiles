@@ -39,6 +39,7 @@ alias aptr="sudo apt-get remove"
 alias aptupd="sudo apt-get update"
 alias aptupg="sudo apt-get upgrade"
 alias aptupall="sudo apt-get update && sudo apt-get upgrade"
+alias installed="sudo dpkg --get-selections | grep"
 
 # RubyGems
 alias gemu="sudo gem update"
@@ -83,3 +84,6 @@ alias s='screen -X screen'
 function find_grep() {
   find $1 -name $2 | xargs egrep -nC3 $3 | less
 }
+
+# probably not a best practice, but works for a specific project
+alias deliver='git push && cap deploy'
