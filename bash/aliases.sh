@@ -32,13 +32,13 @@ alias grep='grep --color'
 alias less='/usr/share/vim/vim72/macros/less.sh'
 
 # Ubuntu/Debian package management
-alias apts="apt-cache search"
-alias aptsh="apt-cache show"
-alias aptinst="sudo apt-get install"
-alias aptr="sudo apt-get remove"
-alias aptupd="sudo apt-get update"
-alias aptupg="sudo apt-get upgrade"
-alias aptupall="sudo apt-get update && sudo apt-get upgrade"
+alias as="apt-cache search"
+alias ash="apt-cache show"
+alias ai="sudo apt-get install"
+alias ar="sudo apt-get remove"
+alias aud="sudo apt-get update"
+alias aug="sudo apt-get upgrade"
+alias auall="sudo apt-get update && sudo apt-get upgrade"
 alias installed="sudo dpkg --get-selections | grep"
 
 # RubyGems
