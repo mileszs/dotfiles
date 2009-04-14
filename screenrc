@@ -31,8 +31,7 @@
   bind - resize -1
 
 # Configure status bar at the bottom of the terminal
-  hardstatus alwayslastline 
+  hardstatus alwayslastline
   hardstatus string "%{= kb}[ %=%{w}%?%-Lw%?%{C}(%{W}%n*%f %t%?(%u)%?%{C})%{w}%?%+Lw%?%?%= %{b}][%{C} %Y.%m.%d %{W}%0c %{b}]"
-
 
 # End of file
