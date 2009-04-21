@@ -26,10 +26,9 @@ alias l='ls -CF'
 alias lla='ls -la'
 
 alias ..='cd ..'
-alias ...='cd ../..'
-alias ...='cd ../../.'
+alias ...='cd ../../'
+alias ....='cd ../../..'
 alias grep='grep --color'
-alias less='/usr/share/vim/vim72/macros/less.sh'
 
 # Ubuntu/Debian package management
 alias as="apt-cache search"
