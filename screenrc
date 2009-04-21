@@ -7,7 +7,7 @@
 # Last Modified:  Wed 30 Aug 2006 11:25:57 PM EDT
 #
 # Settings used to initialize screen sessions
-
+term screen-256color
 # Change default escape sequence from C-a to a backslash
 #  escape ``                            # default ^Aa
 
