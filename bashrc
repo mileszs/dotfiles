@@ -28,20 +28,7 @@ fi
      NO_COLOR="\[\e[0m\]"
 
 ### PROMPT ###
-function prompt_func() {
-
-  git diff --quiet HEAD &>/dev/null
-  if [[ $? == 1 ]]; then
-    # Add an asterisk if we have uncommited changes
-    export PS1="${GREEN}\u@\h${WHITE}:${CYAN}\w ${LIGHT_RED}\$(__git_ps1 \"(%s*)\")${NO_COLOR}\$ "
-    #echo "${RED}$branch*${NO_COLOR}"
-  else
-    export PS1="${GREEN}\u@\h${WHITE}:${CYAN}\w ${ORANGE}\$(__git_ps1 \"(%s)\")${NO_COLOR}\$ "
-    #echo "${ORANGE}$branch${NO_COLOR}"
-  fi
-}
-
-PROMPT_COMMAND=prompt_func
+export PS1="${GREEN}\u@\h${WHITE}:${CYAN}\w ${NO_COLOR}\$ "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
