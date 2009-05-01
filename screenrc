@@ -34,4 +34,7 @@ term screen-256color
   hardstatus alwayslastline
   hardstatus string "%{= kb}[ %=%{w}%?%-Lw%?%{C}(%{W}%n*%f %t%?(%u)%?%{C})%{w}%?%+Lw%?%?%= %{b}][%{C} %Y.%m.%d %{W}%0c %{b}]"
 
+# Turn of the fucking visual bell
+  vbell off
+
 # End of file
