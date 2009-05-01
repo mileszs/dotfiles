@@ -18,6 +18,9 @@
   cia   = commit -a
   co    = checkout
 
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim -p `f`"
+  add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+
 [github]
 	user = mileszs
 	token = 9b0bc636d124a7f14b23c86df36064ac
