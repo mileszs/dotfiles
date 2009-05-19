@@ -50,6 +50,17 @@ function geminst() {
   sudo gem install $1 || gem search $1 -r ;
 }
 
+# Rails' script/[command] stuff
+alias sst='script/server thin'
+alias sgen='script/generate'
+alias sc='script/console'
+
+# Rails: migrate and clone to test, 'cause autotest needs it NOW
+alias go-db='rake db:auto:migrate && rake db:test:clone'
+
+# autotest
+alias atf='autotest -f'
+
 alias svim='sudo vim'
 alias apache='sudo /etc/init.d/apache2'
 
