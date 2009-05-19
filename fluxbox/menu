@@ -1,0 +1,88 @@
+[begin] (fluxbox)
+	 [exec] (xterm) {xterm}	
+	 [nop] (----------)
+   [submenu] (Applications) {}
+      [submenu] (Accessibility) {}
+         [exec] (Xmag) {xmag} <>
+      [end]
+      [submenu] (Editors) {}
+         [exec] (Emacs 22 (text\)) { x-terminal-emulator -T "Emacs 22 (text)" -e /usr/bin/emacs22 -nw} <>
+         [exec] (Emacs 22 (X11\)) {/usr/bin/emacs22} <>
+         [exec] (GVIM) {/usr/bin/vim.gtk -g -f} </usr/share/pixmaps/vim-32.xpm>
+         [exec] (Nano) { x-terminal-emulator -T "Nano" -e /bin/nano} </usr/share/nano/nano-menu.xpm>
+      [end]
+      [submenu] (Graphics) {}
+         [exec] (X Window Snapshot) {xwd | xwud} <>
+      [end]
+      [submenu] (Network) {}
+         [submenu] (Communication) {}
+            [exec] (Mutt) { x-terminal-emulator -T "Mutt" -e /usr/bin/mutt} </usr/share/pixmaps/mutt.xpm>
+            [exec] (Telnet) { x-terminal-emulator -T "Telnet" -e /usr/bin/telnet} <>
+            [exec] (Xbiff) {xbiff} <>
+         [end]
+         [submenu] (Web Browsing) {}
+            [exec] (w3m) { x-terminal-emulator -T "w3m" -e /usr/bin/w3m /usr/share/doc/w3m/MANUAL.html} <>
+            [exec] (iceweasel) { iceweasel }
+         [end]
+      [end]
+      [submenu] (Programming) {}
+         [exec] (Ruby (irb1.8\)) { x-terminal-emulator -T "Ruby (irb1.8)" -e /usr/bin/irb1.8} <>
+         [exec] (Tclsh8.4) { x-terminal-emulator -T "Tclsh8.4" -e /usr/bin/tclsh8.4} <>
+         [exec] (TkWish8.4) {x-terminal-emulator -e /usr/bin/wish8.4} <>
+      [end]
+      [submenu] (Science) {}
+         [submenu] (Mathematics) {}
+            [exec] (Bc) { x-terminal-emulator -T "Bc" -e /usr/bin/bc} <>
+            [exec] (Dc) { x-terminal-emulator -T "Dc" -e /usr/bin/dc} <>
+            [exec] (Xcalc) {xcalc} <>
+         [end]
+      [end]
+      [submenu] (Shells) {}
+         [exec] (Bash) { x-terminal-emulator -T "Bash" -e /bin/bash --login} <>
+         [exec] (Python (v2.5\)) { x-terminal-emulator -T "Python (v2.5)" -e /usr/bin/python2.5} </usr/share/pixmaps/python2.5.xpm>
+         [exec] (Sh) { x-terminal-emulator -T "Sh" -e /bin/sh --login} <>
+      [end]
+      [submenu] (System) {}
+         [submenu] (Administration) {}
+            [exec] (Aptitude) { x-terminal-emulator -T "Aptitude" -e /usr/bin/aptitude} <>
+            [exec] (Debian Task selector) { x-terminal-emulator -T "Debian Task selector" -e su-to-root -c tasksel} <>
+            [exec] (Editres) {editres} <>
+            [exec] (Reportbug) { x-terminal-emulator -T "Reportbug" -e /usr/bin/reportbug --exit-prompt} <>
+            [exec] (Reportbug (GTK+\)) {/usr/bin/reportbug --exit-prompt --ui gtk2} <>
+            [exec] (Xclipboard) {xclipboard} <>
+            [exec] (Xfontsel) {xfontsel} <>
+            [exec] (Xkill) {xkill} <>
+            [exec] (Xrefresh) {xrefresh} <>
+         [end]
+         [submenu] (Hardware) {}
+            [exec] (Xvidtune) {xvidtune} <>
+         [end]
+         [submenu] (Monitoring) {}
+            [exec] (htop) { x-terminal-emulator -T "htop" -e /usr/bin/htop} <>
+            [exec] (Top) { x-terminal-emulator -T "Top" -e /usr/bin/top} <>
+            [exec] (Xconsole) {xconsole -file /dev/xconsole} <>
+            [exec] (Xev) {x-terminal-emulator -e xev} <>
+            [exec] (Xload) {xload} <>
+         [end]
+      [end]
+      [submenu] (Terminal Emulators) {}
+         [exec] (Eterm) {/usr/bin/Eterm} <>
+         [exec] (XTerm) {xterm} </usr/share/pixmaps/xterm-color_32x32.xpm>
+         [exec] (XTerm (Unicode\)) {uxterm} </usr/share/pixmaps/xterm-color_32x32.xpm>
+      [end]
+      [submenu] (Viewers) {}
+         [exec] (Xditview) {xditview} <>
+      [end]
+   [end]
+
+   [config] (Configuration)
+   [submenu] (Styles) {}
+      [stylesdir] (/usr/share/fluxbox/styles)
+      [stylesdir] (~/.fluxbox/styles)
+   [end]
+   [workspaces] (Workspaces)
+   [reconfig] (Reconfigure)
+   [restart] (Restart)
+   [exit] (Exit)
+
+[end]
