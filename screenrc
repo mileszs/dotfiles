@@ -1,10 +1,11 @@
 #
 # ~/.screenrc
 #
-
-# Author:         Aaron Schaefer <aaron@elasticdog.com>
+# Guy Who Tweaks This File and Adds Foul Language Comments:
+#  -- Miles Z. Sterrett <miles.sterrett@gmail.com>
+#
+# Original Author:         Aaron Schaefer <aaron@elasticdog.com>
 # Created:        Sat 05 Aug 2006 06:38:47 PM EDT
-# Last Modified:  Wed 30 Aug 2006 11:25:57 PM EDT
 #
 # Settings used to initialize screen sessions
 term screen-256color
@@ -34,7 +35,7 @@ term screen-256color
   hardstatus alwayslastline
   hardstatus string "%{= kb}[ %=%{w}%?%-Lw%?%{C}(%{W}%n*%f %t%?(%u)%?%{C})%{w}%?%+Lw%?%?%= %{b}][%{C} %Y.%m.%d %{W}%0c %{b}]"
 
-# Turn of the fucking visual bell
+# Turn off the fucking visual bell
   vbell off
 
 # End of file
