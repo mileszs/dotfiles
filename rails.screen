@@ -5,13 +5,15 @@
 
 source /home/mileszs/.screenrc
 
-screen -t dev 0 
-split 
+screen -t dev 0
+split
 resize 40
 focus down
 screen -t test 1 autotest -f
-focus top
+split -v
+focus down
 screen -t console 2 script/console
+focus top
 screen -t server 3 script/server thin
 screen -t tail 4 tail -f log/development.log
 screen -t misc 5
