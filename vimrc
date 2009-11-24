@@ -81,3 +81,7 @@ noremap ` '
 
 " Take care of forgetting to use sudo with :w!!
 cmap w!! %!sudo tee > /dev/null %
+
+augroup mkd
+  autocmd BufRead *.mkd,*.md,*.markdown  set ai formatoptions=tcroqn2 comments=n:>
+augroup END
