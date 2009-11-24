@@ -19,7 +19,8 @@
   co    = checkout
   cob   = checkout -b
   br    = branch
-  lg    = log -p
+  lg    = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  log1  = log --pretty=oneline --abbrev-commit --decorate
   who   = shortlog -s --
 
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim -p `f`"
