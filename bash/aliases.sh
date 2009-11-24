@@ -56,7 +56,11 @@ alias sgen='script/generate'
 alias sc='script/console'
 
 # Rails: migrate and clone to test, 'cause autotest needs it NOW
-alias go-db='rake db:auto:migrate && rake db:test:clone'
+alias do-db='rake db:auto:migrate && rake db:test:clone'
+
+alias rtu='rake test:units'
+alias rtf='rake test:functionals'
+alias rt='rake test'
 
 # autotest
 alias atf='autotest -f'
@@ -68,6 +72,9 @@ alias apache='sudo /etc/init.d/apache2'
 alias dua='du -ch --max-depth=1'
 alias duv='du -sch ./*'
 alias duh='du -sch ./.*'
+
+# human df
+alias dfh='df -h'
 
 # system monitoring
 alias apache_process='ps -ef | grep apache | grep -v grep | wc -l'
@@ -89,6 +96,9 @@ alias pwsf='sudo pwsafe -upE -f'
 alias scrails='screen -c ~/.rails.screen'
 alias screrb='screen -c ~/.merb.screen'
 alias s='screen -X screen'
+
+# Git
+alias grma='git ls-files --deleted | xargs git rm'
 
 
 function find_grep() {

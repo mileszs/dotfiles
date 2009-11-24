@@ -84,3 +84,13 @@ function ii()
   echo -e "\n${RED}ISP Address :$NC" ; echo ${MY_ISP:-"Not connected"}
   echo
 }
+
+function untar()
+{
+  FT=$(file -b $1 | awk '{print $1}')
+  if [ "$FT" = "bzip2" ]; then
+    tar xvjf "$1"
+  elif [ "$FT" = "gzip" ]; then
+    tar xvzf "$1"
+  fi
+}
