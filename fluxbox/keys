@@ -2,6 +2,7 @@
 OnDesktop Mouse1 :HideMenus
 OnDesktop Mouse2 :WorkspaceMenu
 OnDesktop Mouse3 :RootMenu
+OnDesktop Mouse1 :HideWorkspaceMenu
 
 # scroll on the desktop to change workspaces
 OnDesktop Mouse4 :PrevWorkspace
@@ -44,8 +45,8 @@ Mod4 8 :Tab 8
 Mod4 9 :Tab 9
 
 # open a terminal
-Mod1 F1 :Exec xterm
-Mod4 t  :Exec xterm
+Mod1 F1 :Exec xfce4-terminal --geometry=200x60+0+0
+Mod4 t  :Exec xfce4-terminal --geometry=200x60+0+0
 
 # open a dialog to run programs
 Mod1 F2 :Exec fbrun
@@ -65,12 +66,21 @@ Mod1 F11 :Fullscreen
 # open the window menu
 Mod1 space :WindowMenu
 
+# open root menu
+Mod4 space m :RootMenu
+
 # exit fluxbox
 Control Mod1 Delete :Exit
 
 # next or previous workspace
 Control Mod1 l :NextWorkspace
 Control Mod1 h :PrevWorkspace
+
+# go to a specific workspace
+# Mod1 1 :Workspace 1
+# Mod1 2 :Workspace 2
+# Mod1 3 :Workspace 3
+# Mod1 4 :Workspace 4
 
 # change to a specific workspace
 Control F1 :Workspace 1

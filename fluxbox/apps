@@ -3,7 +3,27 @@
   [Layer]	{2}
 [end]
 [app] (name=xterm) (class=XTerm)
-  [Dimensions]	{1180 785}
+  [Dimensions]	{1180 779}
   [Position]	(UPPERLEFT)	{0 0}
   [Close]	{yes}
+[end]
+[app] (name=Navigator) (class=Firefox) (role=browser)
+  [Workspace]	{1}
+  [Position]	(UPPERLEFT)	{57 22}
+  [Close]	{yes}
+[end]
+[app] (name=Navigator) (class=Shiretoko) (role=browser)
+  [Workspace]	{0}
+  [Head]	{1}
+  [Dimensions]	{1634 1046}
+  [Position]	(UPPERLEFT)	{0 0}
+[end]
+[app] (name=pidgin) (class=Pidgin) (role=buddy_list)
+  [Workspace]	{0}
+  [Head]	{1}
+  [Dimensions]	{245 679}
+  [Position]	(UPPERLEFT)	{1673 0}
+[end]
+[app] (name=evolution) (class=Evolution)
+  [Workspace]	{1}
 [end]

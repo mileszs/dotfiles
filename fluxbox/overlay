@@ -1,2 +1,3 @@
 ! The following line will prevent styles from setting the background.
-background: none
+background: aspect
+background.pixmap /home/mileszs/Pictures/ZIlgesque-1920x1200.jpg
