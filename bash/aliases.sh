@@ -90,7 +90,7 @@ alias sar5='sar -u 5 0'
 alias local_ports='sudo nmap -sT -O localhost'
 
 # my personal default options when using pwsafe
-alias pwsf='sudo pwsafe -upE -f'
+alias pwsf='sudo pwsafe -upE'
 
 # GNU Screen
 alias scrails='screen -c ~/.rails.screen'
