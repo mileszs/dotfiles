@@ -1,15 +1,21 @@
 [begin] (fluxbox)
    [exec] (xfce4-term) {/usr/bin/xfce4-terminal --geometry 200x60+0+0} </usr/share/pixmaps/terminal.xpm>
    [exec] (firefox) {/usr/bin/firefox-3.5} </usr/share/pixmaps/firefox-3.5.png>
+   [exec] (tsclient) {/usr/bin/tsclient} </usr/share/pixmaps/tsclient.png>
+   [exec] (pcmanfm) {/usr/bin/pcmanfm} </usr/share/pixmaps/pcmanfm.png>
 	 [nop] (----------)
    [submenu] (network) {}
      [exec] (firefox) {/usr/bin/firefox-3.0} </usr/share/pixmaps/firefox-3.0.png>
-     [exec] (Pidgin) {/usr/bin/pidgin} </usr/share/pixmaps/pidgin-menu.xpm>
-     [exec] (Transmission BitTorrent Client) {/usr/bin/transmission} </usr/share/pixmaps/transmission.xpm>
-     [exec] (Evolution) {/usr/bin/evolution} </usr/share/pixmaps/evolution.xpm>
+     [exec] (pidgin) {/usr/bin/pidgin} </usr/share/pixmaps/pidgin-menu.xpm>
+     [exec] (transmission bitTorrent client) {/usr/bin/transmission} </usr/share/pixmaps/transmission.xpm>
+     [exec] (evolution) {/usr/bin/evolution} </usr/share/pixmaps/evolution.xpm>
    [end]
    [submenu] (sound) {}
-     [exec] (Rhythmbox) {/usr/bin/rhythmbox} </usr/share/pixmaps/rhythmbox.xpm>
+     [exec] (rhythmbox) {/usr/bin/rhythmbox} </usr/share/pixmaps/rhythmbox.xpm>
+     [exec] (vlc) {/usr/bin/vlc} </usr/share/pixmaps/vlc.png>
+   [end]
+   [submenu] (editors) {}
+     [exec] (gvim) {/usr/bin/gvim} </usr/share/pixmaps/vim-16.xpm>
    [end]
    [submenu] (office) {}
      [exec] (OpenOffice.org Calc) {/usr/bin/oocalc} </usr/share/icons/hicolor/32x32/apps/openofficeorg3-calc.xpm>

@@ -19,10 +19,11 @@
   [Position]	(UPPERLEFT)	{0 0}
 [end]
 [app] (name=pidgin) (class=Pidgin) (role=buddy_list)
-  [Workspace]	{0}
+  [Workspace]	{3}
   [Head]	{1}
   [Dimensions]	{245 679}
   [Position]	(UPPERLEFT)	{1673 0}
+  [Close]	{yes}
 [end]
 [app] (name=evolution) (class=Evolution)
   [Workspace]	{1}
