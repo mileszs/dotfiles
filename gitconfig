@@ -11,17 +11,19 @@
   branch = auto
 
 [alias]
-  st    = status
-  d     = diff
-  a     = add
-  ci    = commit
-  cia   = commit -a
-  co    = checkout
-  cob   = checkout -b
-  br    = branch
-  lg    = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-  log1  = log --pretty=oneline --abbrev-commit --decorate
-  who   = shortlog -s --
+  st      = status
+  d       = diff
+  a       = add
+  ci      = commit
+  cia     = commit -a
+  co      = checkout
+  cob     = checkout -b
+  br      = branch
+  lg      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  log1    = log --pretty=oneline --abbrev-commit --decorate
+  lp      = log -p
+  who     = shortlog -s --
+	datetag = !git tag `date \"+%Y%m%d%H%M\"`
 
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim -p `f`"
   add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
