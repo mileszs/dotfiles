@@ -94,12 +94,11 @@ alias pwsf='sudo pwsafe -upE -f'
 
 # GNU Screen
 alias scrails='screen -c ~/.rails.screen'
-alias screrb='screen -c ~/.merb.screen'
 alias s='screen -X screen'
 
 # Git
 alias grma='git ls-files --deleted | xargs git rm'
-
+alias gs='git status'
 
 function find_grep() {
   find $1 -name $2 | xargs egrep -nC3 $3 | less
