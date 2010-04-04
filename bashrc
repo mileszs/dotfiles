@@ -30,6 +30,8 @@ fi
 ### PROMPT ###
 export PS1="${GREEN}\u@\h${WHITE}:${CYAN}\w ${NO_COLOR}\$ "
 
+export EDITOR="/usr/bin/vim"
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -53,14 +55,9 @@ if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
 
-# aliases
-source ~/.bash/aliases.sh
-
-# environment variables
-source ~/.bash/env.sh
-
-# functions
-source ~/.bash/funcs.sh
+for a in `ls $HOME/.bash/*.sh`; do
+  source $a
+done
 
 # git completion!
 source ~/.git-completion.bash
