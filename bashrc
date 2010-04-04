@@ -30,8 +30,6 @@ fi
 ### PROMPT ###
 export PS1="${GREEN}\u@\h${WHITE}:${CYAN}\w ${NO_COLOR}\$ "
 
-export EDITOR="/usr/bin/vim"
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
