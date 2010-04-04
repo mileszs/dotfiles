@@ -20,7 +20,7 @@
   cob     = checkout -b
   br      = branch
   lg      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-  log1    = log --pretty=oneline --abbrev-commit --decorate
+  l1     = log --pretty=oneline --abbrev-commit --decorate
   lp      = log -p
   who     = shortlog -s --
 	datetag = !git tag `date \"+%Y%m%d%H%M\"`
