@@ -101,5 +101,16 @@ function find_grep() {
   find $1 -name $2 | xargs egrep -nC3 $3 | less
 }
 
+alias mkdir='mkdir -p'
+
+function touch {
+  dir=`expr "$1" : '\(.*\/\)'`
+  if [ $dir ]
+    then
+mkdir -p $dir
+  fi
+  /usr/bin/touch $1
+}
+
 # probably not a best practice, but works for a specific project
 alias deliver='git push && cap deploy'
