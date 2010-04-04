@@ -42,7 +42,7 @@ alias installed="sudo dpkg --get-selections | grep"
 
 # RubyGems
 alias gemu="sudo gem update"
-alias gemi="sudo gem install"
+alias gemi="sudo gem install --no-ri --no-rdoc"
 alias gemun="sudo gem uninstall"
 alias gemus="sudo gem update --system"
 # install or search for a similarly named gem
@@ -65,7 +65,8 @@ alias rt='rake test'
 # autotest
 alias atf='autotest -f'
 
-alias svim='sudo vim'
+alias v='vim'
+alias sv='sudo vim'
 alias apache='sudo /etc/init.d/apache2'
 
 # show sorted directory sizes for all directories
