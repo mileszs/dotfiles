@@ -62,6 +62,8 @@ alias rtu='rake test:units'
 alias rtf='rake test:functionals'
 alias rt='rake test'
 
+alias annotate='annotate --position before --exclude tests,fixtures'
+
 # autotest
 alias atf='autotest -f'
 
