@@ -1,5 +1,7 @@
 # Environment variables
 
+export TERM="xterm-color"
+
 # Don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 
@@ -15,3 +17,6 @@ export HISTCONTROL=ignoredups
 export ODBCINI=/etc/
 export ODBCSYSINI=/etc/
 export FREETDSCONF=/etc/freetds/freetds.conf
+
+# For Clojure
+export CLASSPATH=$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.1.0/clojure-contrib.jar

@@ -1,4 +1,7 @@
-colorscheme vividchalk
-set guifont=Inconsolata\ 13
-set lines=47
-set columns=161
+colorscheme railscasts
+set guifont=monaco\ 13
+set lines=73
+set columns=160
+set guioptions-=r
+set guioptions-=L
+set guioptions-=T

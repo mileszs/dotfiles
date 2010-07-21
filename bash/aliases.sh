@@ -22,8 +22,10 @@ if [ "$TERM" != "dumb" ]; then
 fi
 alias ll='ls -l'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ls -G'
 alias lla='ls -la'
+
+alias t='tree -L 1 -C -h'
 
 alias ..='cd ..'
 alias ...='cd ../../'
@@ -55,6 +57,9 @@ alias sst='script/server thin'
 alias sgen='script/generate'
 alias sc='script/console'
 
+alias cuke='cucumber'
+alias rdp='rake production deploy'
+
 # Rails: migrate and clone to test, 'cause autotest needs it NOW
 alias do-db='rake db:auto:migrate && rake db:test:clone'
 
@@ -68,6 +73,7 @@ alias annotate='annotate --position before --exclude tests,fixtures'
 alias atf='autotest -f'
 
 alias v='vim'
+alias gv='mvim'
 alias sv='sudo vim'
 alias apache='sudo /etc/init.d/apache2'
 
@@ -98,6 +104,17 @@ alias pwsf='sudo pwsafe -upE'
 # GNU Screen
 alias scrails='screen -c ~/.rails.screen'
 alias s='screen -X screen'
+
+# Postgresql
+alias pggo='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+
+# cURL
+# alias jcurl='curl -i -H "Content-Type: application/json" -X POST -d'
+
+function jcurl() {
+  curl -i -H "Content-Type: application/json" -X POST -d $1 $2
+}
 
 function find_grep() {
   find $1 -name $2 | xargs egrep -nC3 $3 | less

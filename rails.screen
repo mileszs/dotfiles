@@ -3,18 +3,11 @@
 # preferred dev environment
 #
 
-source /home/mileszs/.screenrc
+source /Users/mileszs/.screenrc
 
 screen -t dev 0
-split
-resize 40
-focus down
-screen -t test 1 autotest -f
-split -v
-focus down
+screen -t spec 1 rake spec || rake cucumber || true
 screen -t console 2 script/console
-focus top
 screen -t server 3 script/server thin
 screen -t tail 4 tail -f log/development.log
-screen -t misc 5
 select 0

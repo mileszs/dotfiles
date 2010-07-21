@@ -14,6 +14,7 @@ alias gds='git diff --cached'
 alias gdh='git diff HEAD'
 
 alias ga='git add'
+alias gai='git add -i'
 alias gc='git commit -v'
 alias gca='gc -a'
 
@@ -23,6 +24,16 @@ alias gprp='gp && rake && gpp'
 alias gri='git rebase -i origin/master^'
 alias grc='git rebase --continue'
 
+alias gst='git stash'
+alias g{='gst'
+alias gsa='gst apply'
+alias g}='gsa'
+alias gps='gst && gp && gsa'
+alias g{p}='gps'
+
+alias gco='git checkout'
+complete -o default -o nospace -F _git_branch gco
+
 alias gb='git branch'
 complete -o default -o nospace -F _git_branch gb
 
@@ -30,6 +41,10 @@ alias gcb='git checkout -b'
 complete -o default -o nospace -F _git_branch gcb
 
 alias grma='git ls-files --deleted | xargs git rm'
+
+function gtb() {
+  git checkout -b $1 --track origin/$1
+}
 
 function ggc() {
   set -- `du -ks`

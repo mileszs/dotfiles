@@ -3,10 +3,15 @@
 " author: Miles Z. Sterrett <miles.sterrett@gmail.com>
 
 " 256 colors
-set t_Co=256
+" set t_Co=256
 
 " Preferred colorscheme
-colorscheme vividchalk
+colorscheme railscasts
+
+" Scala specific highlights
+hi scalaMethodCall gui=italic guifg='#DAD085'
+hi scalaValName gui=underline guifg='#8A9A95'
+hi scalaVarName gui=underline guifg='#CF6A4C'
 
 " Tab and Indent Settings
 set autoindent
@@ -68,6 +73,9 @@ noremap <silent> <Leader>rtw :%s/\s\+$//g<CR>``
 
 " Map F9 to set foldmethod to syntax
 map <F9> :set foldmethod=syntax<CR>
+
+" Map ,cd to change to the directory of the file being edited
+map ,cd :cd %:p:h<CR>
 
 " Use the mouse in terminal Vim!
 "set mouse=a

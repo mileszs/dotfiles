@@ -1,12 +1,15 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+# [ -z "$PS1" ] && return
 
 # set PATH so it includes user's private bin if it exists
 if [ -d ~/bin ] ; then
     PATH=~/bin:"${PATH}"
 fi
+
+# Shut up, Postgresql
+export PGOPTIONS='-c client_min_messages=WARNING'
 
 ### COLORS ###
           RED="\[\033[0;31m\]"
@@ -59,3 +62,6 @@ done
 
 # git completion!
 source ~/.git-completion.bash
+
+# RVM
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
