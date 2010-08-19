@@ -1,3 +1,6 @@
+# This borrows from my .bashrc, of course, and also heavily from
+#  claytron: http://github.com/claytron/dotfiles
+
 UNAME=$(uname)
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my.zsh
@@ -6,15 +9,6 @@ export ZSH=$HOME/.oh-my.zsh
 # Look in ~/.oh-my-zsh/themes/
 export ZSH_THEME="robbyrussell"
 
-# Set to this to use case-sensitive completion
-# export CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# export DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# export DISABLE_LS_COLORS="true"
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(rails ruby git osx)
@@ -22,8 +16,12 @@ plugins=(rails ruby git osx)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin
 export EDITOR=vim
+
+# set up dir hashes
+hash -d CCM=$HOME/code/chacha.me
+hash -d ALN=$HOME/code/askedlastnight.com
 
 # use vi mode
 bindkey -v
@@ -57,6 +55,18 @@ autoload -U tetris
 zle -N tetris
 bindkey "^t" tetris
 
+setopt NO_BEEP
+# Changing Directories
+setopt AUTO_CD
+setopt CDABLE_VARS
+setopt AUTO_PUSHD
+# History
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+setopt HIST_IGNORE_ALL_DUPS
+setopt EXTENDED_HISTORY
+
+source ~/.zsh/globals.sh
 source ~/.zsh/aliases.sh
 source ~/.zsh/git.sh
 # RVM
