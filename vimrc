@@ -93,3 +93,9 @@ cmap w!! %!sudo tee > /dev/null %
 augroup mkd
   autocmd BufRead *.mkd,*.md,*.markdown  set ai formatoptions=tcroqn2 comments=n:>
 augroup END
+
+" Commands for specific projects
+cmap ccm :cd ~/code/chacha.me
+cmap aln :cd ~/code/askedlastnight.com
+cmap hol :cd ~/code/holscher
+cmap cwp :cd ~/code/chacha-widget-portal
