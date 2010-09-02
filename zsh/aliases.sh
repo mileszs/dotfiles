@@ -113,4 +113,4 @@ mkdir -p $dir
 }
 
 # probably not a best practice, but works for a specific project
-alias deliver='git push && cap deploy'
+alias deliver='gpp && cap staging deploy'
