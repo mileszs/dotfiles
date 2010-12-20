@@ -1,4 +1,4 @@
-colorscheme railscasts
+colorscheme up
 set guifont=monaco\ 13
 set lines=73
 set columns=160
