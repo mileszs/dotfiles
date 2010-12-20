@@ -36,7 +36,7 @@ alias sgen='script/generate'
 alias sc='script/console'
 
 alias cuke='cucumber'
-alias testntell='rake spec && rake cucumber && growlnotify -s -m "Done, mother fucker!"'
+alias testntell='rake spec && rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
 alias fuck='testntell'
 
 # Rails: migrate and clone to test, 'cause autotest needs it NOW
@@ -47,8 +47,6 @@ alias rtf='rake test:functionals'
 alias rt='rake test'
 
 alias rpd='rake production deploy'
-
-alias annotate='annotate --position before --exclude tests,fixtures'
 
 # autotest
 alias atf='autotest -f'
