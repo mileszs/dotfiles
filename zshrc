@@ -16,12 +16,14 @@ plugins=(rails ruby git osx)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:/usr/local/sbin:/usr/local/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin/:$PATH
 export EDITOR=vim
+export NODE_PATH="/usr/local/lib/node"
 
 # set up dir hashes
 hash -d CCM=$HOME/code/chacha.me
 hash -d ALN=$HOME/code/askedlastnight.com
+hash -d CWP=$HOME/code/chacha-widget-portal
 
 # use vi mode
 bindkey -v
@@ -69,5 +71,8 @@ setopt EXTENDED_HISTORY
 source ~/.zsh/globals.sh
 source ~/.zsh/aliases.sh
 source ~/.zsh/git.sh
+source ~/.zsh/funcs.sh
+
 # RVM
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+unsetopt auto_name_dirs
