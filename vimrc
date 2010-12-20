@@ -3,15 +3,10 @@
 " author: Miles Z. Sterrett <miles.sterrett@gmail.com>
 
 " 256 colors
-" set t_Co=256
+set t_Co=256
 
 " Preferred colorscheme
 colorscheme railscasts
-
-" Scala specific highlights
-hi scalaMethodCall gui=italic guifg='#DAD085'
-hi scalaValName gui=underline guifg='#8A9A95'
-hi scalaVarName gui=underline guifg='#CF6A4C'
 
 " Tab and Indent Settings
 set autoindent
