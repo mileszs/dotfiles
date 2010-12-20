@@ -66,3 +66,17 @@ function grb() {
 function current_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
+
+function gnuke() {
+  if [ ! -d .git ]; then
+    echo "Error: must run this script from the root of a git repository"
+    exit 1
+  fi
+
+  # remove all paths passed as arguments from the history of the repo
+  files=$@
+  git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch $files" HEAD
+
+  # remove the temporary history git-filter-branch otherwise leaves behind for a long time
+  rm -rf .git/refs/original/ && git reflog expire --all &&  git gc --aggressive --prune
+}
