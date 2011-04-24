@@ -35,18 +35,24 @@ alias sst='script/server thin'
 alias sgen='script/generate'
 alias sc='script/console'
 
+# Rails 3 analogues for the above
+alias rs='rails server'
+alias rst='rs thin'
+alias rc='rails console'
+alias rcp='rails console production'
+alias rg='rails generate'
+
 alias cuke='cucumber'
 alias testntell='rake spec && rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
 alias fuck='testntell'
-
-# Rails: migrate and clone to test, 'cause autotest needs it NOW
-alias do-db='rake db:auto:migrate && rake db:test:clone'
 
 alias rtu='rake test:units'
 alias rtf='rake test:functionals'
 alias rt='rake test'
 
 alias rpd='rake production deploy'
+
+alias rdm='rake db:migrate'
 
 # autotest
 alias atf='autotest -f'
