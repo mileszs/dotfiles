@@ -33,6 +33,9 @@ alias g}='gsa'
 alias gps='gst && gp && gsa'
 alias g{p}='gps'
 
+alias gfp='git format-patch'
+alias gf1='git format-patch -1'
+
 alias gco='git checkout'
 # complete -o default -o nospace -F _git_branch gco
 
