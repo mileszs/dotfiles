@@ -3,11 +3,11 @@
 # preferred dev environment
 #
 
-source /Users/mileszs/.screenrc
+source ~/.screenrc
 
 screen -t dev 0
-screen -t spec 1 rake spec || rake cucumber || true
-screen -t console 2 script/console
-screen -t server 3 script/server thin
+screen -t spec 1 rake spec
+screen -t console 2 rails c
+screen -t server 3 rails s thin
 screen -t tail 4 tail -f log/development.log
 select 0
