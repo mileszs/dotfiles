@@ -36,6 +36,7 @@ alias sgen='script/generate'
 alias sc='script/console'
 
 # Rails 3 analogues for the above
+alias b='bundle exec'
 alias rs='rails server'
 alias rst='rs thin'
 alias rc='rails console'
@@ -118,3 +119,5 @@ mkdir -p $dir
 
 # probably not a best practice, but works for a specific project
 alias deliver='gpp && cap staging deploy'
+
+alias gsd='sudo get-shit-done'
