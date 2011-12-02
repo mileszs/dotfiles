@@ -43,6 +43,18 @@ alias rc='rails console'
 alias rcp='rails console production'
 alias rg='rails generate'
 
+# Now with bundle exec
+alias brs='b rails server'
+alias brst='b rs thin'
+alias brc='rails console'
+alias brcp='rails console production'
+alias brg='rails generate'
+alias brtu='rake test:units'
+alias brtf='rake test:functionals'
+alias brti='rake test:integration'
+alias brt='rake test'
+alias brdm='rake db:migrate'
+
 alias cuke='cucumber'
 alias testntell='rake spec && rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
 alias fuck='testntell'
@@ -50,9 +62,7 @@ alias fuck='testntell'
 alias rtu='rake test:units'
 alias rtf='rake test:functionals'
 alias rt='rake test'
-
 alias rpd='rake production deploy'
-
 alias rdm='rake db:migrate'
 
 # autotest
