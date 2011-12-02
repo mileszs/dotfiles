@@ -52,6 +52,9 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
+# Load the zmv module for some awesome file renaming
+autoload -U zmv
+
 # tetris!!
 autoload -U tetris
 zle -N tetris
@@ -62,17 +65,19 @@ setopt NO_BEEP
 setopt AUTO_CD
 setopt CDABLE_VARS
 setopt AUTO_PUSHD
+
 # History
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_VERIFY
 setopt HIST_IGNORE_ALL_DUPS
 setopt EXTENDED_HISTORY
 
-source ~/.zsh/globals.sh
-source ~/.zsh/aliases.sh
-source ~/.zsh/git.sh
-source ~/.zsh/funcs.sh
+for a in `ls $HOME/.zsh/*.sh`; do
+  source $a
+done
 
-# RVM
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+# This loads RVM into a shell session.
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 unsetopt auto_name_dirs
+
+unset GREP_OPTIONS
