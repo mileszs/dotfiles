@@ -1,6 +1,6 @@
 # bash aliases for Git
 # included by .bashrc
-# I still all of this shit from jqr/Elijah Miller
+# I stole all of this shit from jqr/Elijah Miller
 
 alias gi='git init; printf "*.swp\n.DS_Store\nThumbs.db\n" >> .gitignore'
 
