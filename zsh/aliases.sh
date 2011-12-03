@@ -59,6 +59,9 @@ alias cuke='b cucumber'
 alias testntell='b rake spec && b rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
 alias fuck='testntell'
 
+# RVM
+alias rvmp='rvm-prompt'
+
 # autotest
 alias atf='autotest -f'
 
