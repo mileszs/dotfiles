@@ -46,6 +46,9 @@ alias gcb='git checkout -b'
 # complete -o default -o nospace -F _git_branch gcb
 
 alias grma='git ls-files --deleted | xargs git rm'
+alias glu='git ls-files --other --exclude-standard'
+alias glud='git ls-files --other --exclude-standard | xargs rm'
+alias glua='git ls-files --other --exclude-standard | xargs git add'
 
 function gtb() {
   git checkout -b $1 --track origin/$1
