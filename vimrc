@@ -12,6 +12,7 @@ colorscheme railscasts
 set autoindent
 set tabstop=2
 set shiftwidth=2
+set softtabstop=2
 set expandtab
 set smarttab
 set smartindent
@@ -54,10 +55,12 @@ set wildmode=list:longest
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-" Make tabs and trailing spaces visible when request
-" (<leader>s)
-set listchars=tab:>-,trail:·,eol:$
-nmap <silent> <leader>s :set nolist!<CR>
+" Shed light on hidden things
+set list
+set listchars=tab:»»,trail:•
+set wrap
+set linebreak
+set showbreak=↳
 
 " Highlight trailing whitespace characters and tabs not used for indention
 highlight WhitespaceErrors ctermbg=Red guibg=Red
