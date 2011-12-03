@@ -30,12 +30,7 @@ function geminst() {
   sudo gem install $1 || gem search $1 -r ;
 }
 
-# Rails' script/[command] stuff
-alias sst='script/server thin'
-alias sgen='script/generate'
-alias sc='script/console'
-
-# Rails 3 analogues for the above
+# Rails 3
 alias b='bundle exec'
 alias rs='rails server'
 alias rst='rs thin'
