@@ -72,6 +72,8 @@ setopt HIST_VERIFY
 setopt HIST_IGNORE_ALL_DUPS
 setopt EXTENDED_HISTORY
 
+setopt EXTENDED_GLOB
+
 for a in `ls $HOME/.zsh/*.sh`; do
   source $a
 done
