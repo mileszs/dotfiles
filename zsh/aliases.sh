@@ -10,6 +10,8 @@ alias ...='cd ../../'
 alias ....='cd ../../..'
 alias grep='grep --color'
 
+alias mkdir='mkdir -p'
+
 # Ubuntu/Debian package management
 # alias as="apt-cache search"
 # alias ash="apt-cache show"
@@ -19,6 +21,11 @@ alias grep='grep --color'
 # alias aug="sudo apt-get upgrade"
 # alias auall="sudo apt-get update && sudo apt-get upgrade"
 # alias installed="sudo dpkg --get-selections | grep"
+
+alias v='vim'
+alias gv='mvim'
+alias sv='sudo vim'
+alias apache='sudo /etc/init.d/apache2'
 
 # RubyGems
 alias gemu="sudo gem update"
@@ -32,28 +39,17 @@ function geminst() {
 
 # Rails 3
 alias b='bundle exec'
-alias rs='rails server'
-alias rst='rs thin'
-alias rc='rails console'
-alias rcp='rails console production'
-alias rg='rails generate'
-alias rtu='rake test:units'
-alias rtf='rake test:functionals'
-alias rt='rake test'
-alias rpd='rake production deploy'
-alias rdm='rake db:migrate'
-
-# Now with bundle exec
-alias brs='b rails server'
-alias brst='b rs thin'
-alias brc='b rails console'
-alias brcp='b rails console production'
-alias brg='b rails generate'
-alias brtu='b rake test:units'
-alias brtf='b rake test:functionals'
-alias brti='b rake test:integration'
-alias brt='b rake test'
-alias brdm='b rake db:migrate'
+alias bake='bundle exec rake'
+alias server='bundle exec rails server'
+alias server-thin='bundle exec rails server thin'
+alias console='bundle exec rails console'
+alias production-console='bundle exec rails console production'
+alias generate='bundle exec rails generate'
+alias unit-tests='bundle exec rake test:units'
+alias functional-tests='bundle exec rake test:functionals'
+alias integration-tests='bundle exect rake test:integration'
+alias tests='bundle exec rake test'
+alias migrate="bundle exec db:migrate db:test:prepare"
 
 alias cuke='b cucumber'
 alias testntell='b rake spec && b rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
@@ -62,13 +58,16 @@ alias fuck='testntell'
 # RVM
 alias rvmp='rvm-prompt'
 
-# autotest
-alias atf='autotest -f'
+# Heroku staging
+alias heroku-console='heroku run console'
+alias heroku-ps='watch heroku ps'
+alias heroku-releases='heroku releases'
+alias heroku-tail='heroku logs --tail'
 
-alias v='vim'
-alias gv='mvim'
-alias sv='sudo vim'
-alias apache='sudo /etc/init.d/apache2'
+# Heroku databases
+alias db-pull='heroku db:pull'
+alias db-backup='heroku pgbackups:capture'
+
 
 # show sorted directory sizes for all directories
 alias dua='du -ch --max-depth=1'
@@ -98,28 +97,6 @@ alias s='screen -X screen'
 # Postgresql
 alias pggo='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
-
-# cURL
-# alias jcurl='curl -i -H "Content-Type: application/json" -X POST -d'
-
-function jcurl() {
-  curl -i -H "Content-Type: application/json" -X POST -d $1 $2
-}
-
-function find_grep() {
-  find $1 -name $2 | xargs egrep -nC3 $3 | less
-}
-
-alias mkdir='mkdir -p'
-
-function touch {
-  dir=`expr "$1" : '\(.*\/\)'`
-  if [ $dir ]
-    then
-mkdir -p $dir
-  fi
-  /usr/bin/touch $1
-}
 
 # probably not a best practice, but works for a specific project
 alias deliver='gpp && cap staging deploy'
