@@ -2,6 +2,8 @@
 # included by .bashrc
 # I stole all of this shit from jqr/Elijah Miller
 
+alias g='git'
+
 alias gi='git init; printf "*.swp\n.DS_Store\nThumbs.db\n" >> .gitignore'
 
 # http://www.jukie.net/~bart/blog/pimping-out-git-log

@@ -1,4 +1,24 @@
-# functions -- sourced by bashrc
+# functions -- sourced by zshrc
+
+# cURL
+# alias jcurl='curl -i -H "Content-Type: application/json" -X POST -d'
+
+function jcurl() {
+  curl -i -H "Content-Type: application/json" -X POST -d $1 $2
+}
+
+function find_grep() {
+  find $1 -name $2 | xargs egrep -nC3 $3 | less
+}
+
+function touch {
+  dir=`expr "$1" : '\(.*\/\)'`
+  if [ $dir ]
+    then
+mkdir -p $dir
+  fi
+  /usr/bin/touch $1
+}
 
 # File & String Related Functions
 
