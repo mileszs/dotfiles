@@ -49,7 +49,7 @@ alias unit-tests='bundle exec rake test:units'
 alias functional-tests='bundle exec rake test:functionals'
 alias integration-tests='bundle exect rake test:integration'
 alias tests='bundle exec rake test'
-alias migrate="bundle exec db:migrate db:test:prepare"
+alias migrate="bundle exec rake db:migrate db:test:prepare"
 
 alias cuke='b cucumber'
 alias testntell='b rake spec && b rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
