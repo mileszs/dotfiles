@@ -2,6 +2,9 @@
 "
 " author: Miles Z. Sterrett <miles.sterrett@gmail.com>
 
+call pathogen#infect()
+call pathogen#helptags()
+
 " 256 colors
 set t_Co=256
 
