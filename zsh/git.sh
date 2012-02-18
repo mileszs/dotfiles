@@ -52,6 +52,9 @@ alias glu='git ls-files --other --exclude-standard'
 alias glud='git ls-files --other --exclude-standard | xargs rm'
 alias glua='git ls-files --other --exclude-standard | xargs git add'
 
+# Heroku
+alias pushroku='git push heroku master'
+
 function gtb() {
   git checkout -b $1 --track origin/$1
 }
