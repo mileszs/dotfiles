@@ -47,7 +47,7 @@ alias production-console='bundle exec rails console production'
 alias generate='bundle exec rails generate'
 alias unit-tests='bundle exec rake test:units'
 alias functional-tests='bundle exec rake test:functionals'
-alias integration-tests='bundle exect rake test:integration'
+alias integration-tests='bundle exec rake test:integration'
 alias tests='bundle exec rake test'
 alias migrate="bundle exec rake db:migrate db:test:prepare"
 
