@@ -16,7 +16,7 @@ plugins=(rails ruby git osx)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin/:$PATH
+export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/Users/miles/node_modules/.bin:$PATH
 export EDITOR=vim
 export NODE_PATH="/usr/local/lib/node"
 
