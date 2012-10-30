@@ -39,6 +39,7 @@ function geminst() {
 
 # Rails 3
 alias b='bundle exec'
+alias bi='bundle install'
 alias bake='bundle exec rake'
 alias server='bundle exec rails server'
 alias server-thin='bundle exec rails server thin'
@@ -49,6 +50,7 @@ alias unit-tests='bundle exec rake test:units'
 alias functional-tests='bundle exec rake test:functionals'
 alias integration-tests='bundle exec rake test:integration'
 alias tests='bundle exec rake test'
+alias specs='bundle exec rake spec && bundle exec cucumber -f progress'
 alias migrate="bundle exec rake db:migrate db:test:prepare"
 
 alias cuke='b cucumber'
@@ -97,6 +99,12 @@ alias s='screen -X screen'
 # Postgresql
 alias pggo='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias pgstop='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+
+# Redis
+alias rgo='redis-server /usr/local/etc/redis.conf'
+
+# Mongo
+alias mongogo='mongod run --config /usr/local/etc/mongod.conf'
 
 # probably not a best practice, but works for a specific project
 alias deliver='gpp && cap staging deploy'
