@@ -11,7 +11,7 @@ export ZSH_THEME="robbyrussell"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(rails ruby git osx)
+plugins=(rails ruby git osx zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -20,10 +20,12 @@ export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/Users/miles/node_modules/.
 export EDITOR=vim
 export NODE_PATH="/usr/local/lib/node"
 
+cdpath=($HOME $HOME/code)
+
 # set up dir hashes
-hash -d CCM=$HOME/code/chacha.me
-hash -d ALN=$HOME/code/askedlastnight.com
-hash -d CWP=$HOME/code/chacha-widget-portal
+hash -d IH=$HOME/code/indyhackers
+hash -d HG=$HOME/code/handicappergenerals.com
+hash -d Z=$HOME/code/zeumo
 
 # use vi mode
 bindkey -v
@@ -83,3 +85,8 @@ done
 unsetopt auto_name_dirs
 
 unset GREP_OPTIONS
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
