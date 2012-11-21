@@ -20,8 +20,6 @@ set expandtab
 set smarttab
 set smartindent
 
-set visualbell
-
 set backspace=indent,eol,start
 
 set title         " set terminal title
@@ -34,6 +32,7 @@ set ruler         " each window will contain a status line with cursor position
 set showcmd       " display an incomplete command in the lower right corner
 set number        " show line numbers
 set scrolloff=3   " scroll before the border
+set noswapfile
 
 set hlsearch      " highlight search terms
 set incsearch     " search as you type
@@ -52,11 +51,7 @@ runtime macros/matchit.vim
 
 " more useful tab completion
 set wildmenu
-set wildmode=list:longest
-
-" Keep all tmp files in a central location
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set wildmode=list:longest,list:full
 
 " Shed light on hidden things
 set list
@@ -79,9 +74,8 @@ map <F9> :set foldmethod=syntax<CR>
 map ,cd :cd %:p:h<CR>
 
 " Use the mouse in terminal Vim!
-"set mouse=a
-"set ttymouse=xterm2
-" Honestly, they work fine.  I just hate them
+set mouse=a
+set ttymouse=xterm2
 
 " Swap ` and '.  ` is more useful in every situation
 " that I can imagine!
@@ -95,4 +89,12 @@ augroup mkd
   autocmd BufRead *.mkd,*.md,*.markdown  set ai formatoptions=tcroqn2 comments=n:>
 augroup END
 
-cmap sass %s![{\|}\|;]\+!!g
+
+" tslime
+vmap <Leader>rs <Plug>SendSelectionToTmux
+nmap <Leader>rt <Plug>NormalModeSendToTmux
+nmap <Leader>rr <Plug>SetTmuxVars
+
+" SimpleNote.vim
+source ~/dotfiles/simplenoterc
+let g:SimplenoteFiletype = "mkd"
