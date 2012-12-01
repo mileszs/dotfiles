@@ -8,9 +8,6 @@ call pathogen#helptags()
 " 256 colors
 set t_Co=256
 
-" Preferred colorscheme
-colorscheme up
-
 " Tab and Indent Settings
 set autoindent
 set tabstop=2
@@ -45,6 +42,10 @@ syntax on
 filetype on
 filetype plugin on
 filetype indent on
+
+" Preferred colorscheme
+set background=dark
+colorscheme solarized
 
 " extended matching
 runtime macros/matchit.vim
@@ -98,3 +99,6 @@ nmap <Leader>rr <Plug>SetTmuxVars
 " SimpleNote.vim
 source ~/dotfiles/simplenoterc
 let g:SimplenoteFiletype = "mkd"
+
+" quickfixsigns
+let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
