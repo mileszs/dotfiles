@@ -1,0 +1,9 @@
+tags
+Makefile
+TODO.TXT
+*.vba
+*.vmb
+*.zip
+.last_*
+test
+test_*
