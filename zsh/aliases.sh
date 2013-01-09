@@ -40,7 +40,7 @@ function geminst() {
 # Rails 3
 alias b='bundle exec'
 alias bi='bundle install'
-alias bake='bundle exec rake'
+alias bake='noglob bundle exec rake'
 alias server='bundle exec rails server'
 alias server-thin='bundle exec rails server thin'
 alias console='bundle exec rails console'
@@ -56,6 +56,11 @@ alias migrate="bundle exec rake db:migrate db:test:prepare"
 alias cuke='b cucumber'
 alias testntell='b rake spec && b rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
 alias fuck='testntell'
+
+# Ruby
+# zsh globbing interferes with passing arguments using square brackets
+# Ex. rake new_post[some blog post title]
+alias rake='noglob rake'
 
 # RVM
 alias rvmp='rvm-prompt'
