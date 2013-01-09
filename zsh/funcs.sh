@@ -131,3 +131,17 @@ function ship()
   git push origin master
   git checkout ${CURRENT}
 }
+
+function rserv()
+{
+  rport=3000
+  port_taken=`lsof -i tcp:${rport}`
+  while [ $port_taken ]
+  do
+    echo "Port ${rport} taken..."
+    (( rport++ ))
+    port_taken=`lsof -i tcp:${rport}`
+  done
+  echo "Port ${rport} free, starting server..."
+  rails s -p ${rport}
+}
