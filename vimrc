@@ -96,9 +96,5 @@ vmap <Leader>rs <Plug>SendSelectionToTmux
 nmap <Leader>rt <Plug>NormalModeSendToTmux
 nmap <Leader>rr <Plug>SetTmuxVars
 
-" SimpleNote.vim
-source ~/dotfiles/simplenoterc
-let g:SimplenoteFiletype = "mkd"
-
 " quickfixsigns
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
