@@ -20,7 +20,7 @@ export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/Users/miles/node_modules/.
 export EDITOR=vim
 export NODE_PATH="/usr/local/lib/node"
 
-cdpath=($HOME $HOME/code)
+cdpath=(. $HOME $HOME/code)
 
 # set up dir hashes
 hash -d IH=$HOME/code/indyhackers
