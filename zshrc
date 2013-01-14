@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 # Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="robbyrussell"
+export ZSH_THEME="bira"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -16,11 +16,11 @@ plugins=(rails ruby git osx zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/Users/miles/node_modules/.bin:$PATH
+export PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/Users/miles/node_modules/.bin:/usr/local/heroku/bin:$HOME/.rvm/bin:$PATH
 export EDITOR=vim
 export NODE_PATH="/usr/local/lib/node"
 
-cdpath=(. $HOME $HOME/code)
+export CDPATH=$CDPATH:$HOME:$HOME/code
 
 # set up dir hashes
 hash -d IH=$HOME/code/indyhackers
@@ -83,10 +83,6 @@ done
 # This loads RVM into a shell session.
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 unsetopt auto_name_dirs
-
 unset GREP_OPTIONS
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+typeset -U path cdpath fpath
