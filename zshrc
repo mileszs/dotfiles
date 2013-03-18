@@ -86,3 +86,6 @@ unsetopt auto_name_dirs
 unset GREP_OPTIONS
 
 typeset -U path cdpath fpath
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
