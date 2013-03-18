@@ -1,0 +1,61 @@
+rubyhash.txt  For Vim  version 7.3  Last change: 27 December 2011
+                                                *rubyhash* 
+Rubyhash~
+
+This plugin is for the conversion of key "styles" in Ruby hash literals.
+The three styles supported are symbols, strings or Ruby 1.9.
+
+Usage~
+
+Rubyhash will convert all hash keys on the current line to the selected
+style via the following default keymappings:
+
+<Leader>rs Convert all hash keys to symbols
+<Leader>rt Convert all hash keys to strings
+<Leader>rr Convert all hash keys to Ruby1.9 format
+
+Overriding the default keymappings~
+
+Adding the following variable to your .vimrc will disable the default 
+key mappings:
+
+let g:rubyhash_map_keys = 0
+
+You can then define your own keymappings to the following functions:
+
+ToSymbolKeysLinewise()
+ToStringKeysLinewise()
+To19KeysLinewise()
+
+Caveats~
+
+The regular expression that identifies a potential key is fairly naive - only considers the following pattern: [a-zA-Z0-9_].
+
+Contact~
+
+Rory McKinley (rorymckinley at gmail dot com)
+
+License~
+
+rubyhash is licensed under the MIT license
+
+Copyright (C) 2011 by Rory McKinley
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+vim:tw=72:ft=help:
