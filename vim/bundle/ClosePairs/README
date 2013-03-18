@@ -1,0 +1,53 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2373
+
+Autocloses pairs of chararacters as seen in TextMate or Scribes.
+
+I couldn't find a script that worked as I liked, so here's my very simple attempt :)
+
+Pairs are (), [], {}, '', ""
+
+Features
+=======
+
+1) in INSERT mode, typing the closing character let the cursor "escape" the pair 
+
+e.g.: (cursor represented with a pipe, on the left what you type, on the right what you get)
+" -> "|"
+some text -> "some text|"
+" -> "some text"|
+
+* useful when typing an open/close bracket pair as in foo()
+
+* works with already existing text
+e.g.:
+(move cursor) -> "this is a string|"
+" -> "this is a string"|
+
+
+2) "atomic" deletion of a pair
+()|<bs> -> |
+(|)<bs> -> |
+* won't work with <del> (use <del> when you don't want the closing bracket/quote)
+
+3) experimental support for visual mode
+
+select abc 
+type <leader>" -> "abc"
+
+
+tested with vim 7; might work with earlier versions, though
+hope you'll like it, let me know!
+you can comment here: http://www.flatpress.org/home/?entry=entry080910-135006
+
+
+UPDATE: since you made me notice, here's the other scripts dealing with the same problem
+
+* vimscript #1849 - AutoClose by Karl Guertin
+* vimscript #2009 - AutoClose by Thiago Alvares
+
+they all differs for little, the first is a bit simpler; the latter is probably the most configurable.
+
+Pick your favorite :)
+
+
+
