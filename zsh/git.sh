@@ -44,6 +44,8 @@ alias gco='git checkout'
 alias gb='git branch'
 # complete -o default -o nospace -F _git_branch gb
 
+alias gtrack='git branch --track'
+
 alias gcb='git checkout -b'
 # complete -o default -o nospace -F _git_branch gcb
 
