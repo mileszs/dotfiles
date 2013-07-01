@@ -55,7 +55,7 @@ alias specs='bundle exec rake spec && bundle exec cucumber -f progress'
 alias migrate="bundle exec rake db:migrate db:test:prepare"
 
 alias cuke='b cucumber'
-alias testntell='b rake spec && b rake cucumber && growlnotify -s -m "Scenarios and specs are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte."'
+alias testntell='b rake test:all && b rake cucumber && terminal-notifier -message "Tests are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte." -title "Tests"'
 alias fuck='testntell'
 
 # Ruby
