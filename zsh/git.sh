@@ -22,7 +22,7 @@ alias gc='git commit -v'
 alias gca='gc -a'
 alias gm='git merge'
 
-alias gp='git pull --rebase'
+alias gp='git pull'
 alias gpp='gp && git push origin `current_git_branch`'
 alias gprp='gp && rake && gpp'
 alias gri='git rebase -i origin/master^'

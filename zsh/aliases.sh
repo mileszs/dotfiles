@@ -58,6 +58,8 @@ alias cuke='b cucumber'
 alias testntell='b rake test:all && b rake cucumber && terminal-notifier -message "Tests are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte." -title "Tests"'
 alias fuck='testntell'
 
+alias zues='zeus'
+
 # Ruby
 # zsh globbing interferes with passing arguments using square brackets
 # Ex. rake new_post[some blog post title]

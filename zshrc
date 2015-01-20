@@ -22,11 +22,6 @@ export NODE_PATH="/usr/local/lib/node"
 
 export CDPATH=$CDPATH:$HOME:$HOME/code
 
-# set up dir hashes
-hash -d IH=$HOME/code/indyhackers
-hash -d HG=$HOME/code/handicappergenerals.com
-hash -d Z=$HOME/code/zeumo
-
 # use vi mode
 bindkey -v
 
