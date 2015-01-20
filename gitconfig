@@ -1,6 +1,6 @@
 [user]
-	name = Miles Z. Sterrett
-	email = miles@mileszs.com
+  name = Miles Z. Sterrett
+  email = miles@mileszs.com
 
 [apply]
   whitespace = strip
@@ -23,13 +23,13 @@
   l1     = log --pretty=oneline --abbrev-commit --decorate
   lp      = log -p
   who     = shortlog -s --
-	datetag = !git tag `date \"+%Y%m%d%H%M\"`
+  datetag = !git tag `date \"+%Y%m%d%H%M\"`
+  churn = "!f() { git log --all -M -C --name-only --format='format:' \"$@\" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print \"count\tfile\"} {print $1 \"\t\" $2}' | sort -g; }; f"
 
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim -p `f`"
   add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
 [github]
 	user = mileszs
-	token = 9b0bc636d124a7f14b23c86df36064ac
 [merge]
-	tool = vimdiff
+  tool = vimdiff
