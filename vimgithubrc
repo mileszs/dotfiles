@@ -1,0 +1,4 @@
+let g:github_user='mileszs'
+let g:gist_clip_command='pbcopy'
+let g:gits_detect_filetype = 1
+let g:gist_open_browser_after_post = 1

@@ -98,3 +98,28 @@ nmap <Leader>rr <Plug>SetTmuxVars
 
 " quickfixsigns
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
+
+" rails.vim projections
+let g:rails_projections = {
+      \ "features/*.feature": {"command": "feature"},
+      \ "features/step_definitions/*.rb": {"command": "step"},
+      \ "app/services/*.rb": {
+      \   "command": "service",
+      \   "test": [
+      \     "spec/services/%s_spec.rb"
+      \   ]
+      \ }
+      \ }
+
+let g:rspec_runner = "os_x_iterm"
+let g:rspec_command = "!zeus rspec {spec}"
+" let g:rspec_command = "Dispatch rspec {spec}"
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>"
+
+" github
+source /Users/mileszs/.vimgithubrc
