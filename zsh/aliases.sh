@@ -12,32 +12,12 @@ alias grep='grep --color'
 
 alias mkdir='mkdir -p'
 
-# Ubuntu/Debian package management
-# alias as="apt-cache search"
-# alias ash="apt-cache show"
-# alias ai="sudo apt-get install"
-# alias ar="sudo apt-get remove"
-# alias aud="sudo apt-get update"
-# alias aug="sudo apt-get upgrade"
-# alias auall="sudo apt-get update && sudo apt-get upgrade"
-# alias installed="sudo dpkg --get-selections | grep"
-
 alias v='vim'
 alias gv='mvim'
 alias sv='sudo vim'
 alias apache='sudo /etc/init.d/apache2'
 
-# RubyGems
-alias gemu="sudo gem update"
-alias gemi="sudo gem install --no-ri --no-rdoc"
-alias gemun="sudo gem uninstall"
-alias gemus="sudo gem update --system"
-# install or search for a similarly named gem
-function geminst() {
-  sudo gem install $1 || gem search $1 -r ;
-}
-
-# Rails 3
+# Rails
 alias b='bundle exec'
 alias bi='bundle install'
 alias bake='noglob bundle exec rake'
@@ -56,7 +36,6 @@ alias migrate="bundle exec rake db:migrate db:test:prepare"
 
 alias cuke='b cucumber'
 alias testntell='b rake test:all && b rake cucumber && terminal-notifier -message "Tests are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte." -title "Tests"'
-alias fuck='testntell'
 
 alias zues='zeus'
 
@@ -88,21 +67,12 @@ alias duh='du -sch ./.*'
 alias dfh='df -h'
 
 # system monitoring
-alias apache_process='ps -ef | grep apache | grep -v grep | wc -l'
 alias topcpu='ps aux | sort -n +2 | tail -10'  # top 10 cpu processes
 alias topmem='ps aux | sort -n +3 | tail -10'  # top 10 memory processes
 alias psg='ps aux | grep'
 
-# systat - http://perso.orange.fr/sebastien.godard/index.html
-alias sar2='sar -u 2 0'
-alias sar5='sar -u 5 0'
-
 # show what ports are open locally
 alias local_ports='sudo nmap -sT -O localhost'
-
-# GNU Screen
-alias scrails='screen -c ~/.rails.screen'
-alias s='screen -X screen'
 
 # Postgresql
 alias pggo='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
@@ -113,9 +83,6 @@ alias rgo='redis-server /usr/local/etc/redis.conf'
 
 # Mongo
 alias mongogo='mongod run --config /usr/local/etc/mongod.conf'
-
-# probably not a best practice, but works for a specific project
-alias deliver='gpp && cap staging deploy'
 
 alias gsd='sudo get-shit-done'
 
