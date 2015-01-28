@@ -118,3 +118,6 @@ alias mongogo='mongod run --config /usr/local/etc/mongod.conf'
 alias deliver='gpp && cap staging deploy'
 
 alias gsd='sudo get-shit-done'
+
+# thesaurus
+alias thes='ruby ~/dotfiles/thesaurus.rb'
