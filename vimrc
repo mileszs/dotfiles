@@ -108,6 +108,18 @@ let g:rails_projections = {
       \   "test": [
       \     "spec/services/%s_spec.rb"
       \   ]
+      \ },
+      \ "app/interactors/*.rb": {
+      \   "command": "interactor",
+      \   "test": [
+      \     "spec/interactors/%s_spec.rb"
+      \   ]
+      \ },
+      \ "app/forms/*.rb": {
+      \   "command": "form",
+      \   "test": [
+      \     "spec/forms/%s_spec.rb"
+      \   ]
       \ }
       \ }
 
@@ -120,6 +132,10 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>"
+
+" Split faster
+nmap <silent> vv :vsp<CR>
+nmap <silent> ss :sp<CR>
 
 " github
 source /Users/mileszs/.vimgithubrc
