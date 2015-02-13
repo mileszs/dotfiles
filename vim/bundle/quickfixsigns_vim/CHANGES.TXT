@@ -155,3 +155,87 @@ version: "1.00"
   - UpdateLineNumbers(): Use str2nr(), not char2nr()
   MD5 checksum: 00e4af7843f2619e55ee3cee3e614240
 
+version: "1.01"
+  - Debug: Removed check for invalid line numbers (e.g. fugitive's Glog uses qfl for file lists only)
+  - QuickfixsignsRemoveBuffer(): take a bufnr as argument (not a bufname)
+  - Rename QuickfixsignsRemoveBuffer() to s:RemoveBuffer()
+  - Call s:PurgeRegister() on BufLeave events (not CursorHold)
+  - quickfixsigns#AssertUniqueSigns(): Additional debug message: Empty bsign1
+  - s:Redir(): Protect against verbose != 0
+  - QuickfixsignsUnique(): Collapse multiple items at one line
+  - QuickfixsignsBalloon(): Make sure the balloon text doesn't include \n if !has('balloon_multiline')
+  - s:UpdateLineNumbers(): Don't update line numbers if bufnr <= 0
+  - g:quickfixsigns_class_loc: Update on QuickFixCmdPost events
+  - QuickfixsignsSelect(): Clear unselected signs
+  - QuickfixsignsSet(): match g:quickfixsigns_blacklist_buffer against the base filename
+  - QuickfixsignsToggle command
+  - s:Redir: Deal with :redir bug
+  - Merge branch 'toggle' of https://github.com/iNecas/quickfixsigns_vim
+  - Blacklist buffers used by nerdtree & minibufferexplorer (fixes #23).
+  - Optional enhancement: use tinykeymap (vimscript #4199) to move between signs/sign groups (closes #24)
+  - quickfixsigns#AssertUniqueSigns(): buffer sign is a dictionary now; use bsign.sign
+  - readme: don't mention tlib as dependency (fixes #25)
+  - UpdateLineNumbers(): bufnrsigns[sign.id] = sign.lnum
+  - b:quickfixsigns_ignore: Ignore sign classes per buffer
+  - addon-info
+  - allow to customize QFS_VCS_* signs
+  - Avoid irrelevant checks when no buffer signs will be displayed
+  MD5 checksum: 8dbfd054978cc99491cf9fbe150cd636
+
+  - vcsdiff: Trigger on BufRead instead of BufEnter events (fixes #30)
+  - vcsdiff: Trigger update on FocusGained events
+  - vcsdiff: cache intermediate results
+  - quickfixsigns#vcsdiff#GetList(): Make sure to return a list (fixes #32)
+  - vcsdiff: Change signs to be more like diff -y
+  - vcsdiff: Removed FocusGained event (fixes #33)
+  - Don't unplace signs on BufUnload events
+  - Merge branch 'master' of https://github.com/Chronial/vim-quickfixsigns into vcsdiff_deletes
+  - vcsdiff: Support for alternative list display (see https://github.com/Chronial/vim-quickfixsigns/commit/1cf739c790746157c3cb9b6234c1454333397c9e)
+  - QuickfixsignsBalloon(): use elseif
+  - Help template
+  - Blacklist unite buffers
+  - Provide an example with "Sign Regexp" input
+  - Fix off-by-one error
+  - Display debug message, if quickfixsigns_max is reached
+  - Merge branch 'debug-info-with-max-reached' of https://github.com/blueyed/quickfixsigns_vim
+  - Support for setting maxsigns per class (closes #38)
+  - g:quickfixsigns#vcsdiff#list_type defaults to 1; use scriptencoding
+  - g:quickfixsigns#vcsdiff#del_numbered: If enabled, add a number to DEL signs to indicate the number of deleted lines (fixes #37)
+  - Use own colors
+  MD5 checksum: df86c09e3a6fca2f363fcfd2af7d9fd5
+version: "1.02"
+
+version: "1.03"
+  - FIX: set quickfix signs when loaded after vim_starting
+  - Additional icon files from the open icon library
+  - Use different signs for errors & warnings (closes #42)
+  - g:quickfixsign_type_rx: patch suboptimal 'errorformat' definitions (fix #42)
+  - Changed icons
+  - FIX #42: Use "*" if &ft is empty (it is never unset)
+  - Configurable g:quickfixsign_timeout (default value for timeout option)
+  - Remove InsertChange from g:quickfixsigns_events
+  - g:quickfixsigns_blacklist_buffer matches full filename (don't check buffers with empty filenames)
+  - Minor improvements to avoid unnecessary updates (fix #43)
+  - Call s:UpdateLineNumbers() only if necessary
+  - g:quickfixsign_use_dummy: Option to set dummy sign (fix #44)
+  - Make sure to use new IDs for dummy signs
+  - Set the dummy sign ID correctly
+  - g:quickfixsign_use_dummy defaults to 1
+  - g:quickfixsigns_class_vcsdiff: Update on FocusGained events
+  - Add -bar to command definitions
+  - Call s:UpdateLineNumbers() only when the list has actually changed
+  - g:quickfixsigns_class_vcsdiff: Remove FocusGained event Caused infinite loop when calling git etc.
+  - doc: fix grammar/typos with "Adding new sign classes"
+  - :QuickfixsignsSet: Takes sign classes as optional arguments
+  - quickfixsigns_register is script-local; FIX #47: Use g:quickfixsigns_lists to toggle state
+  - Call RemoveBuffer on BufDelete, not BufUnload (fix #46)
+  MD5 checksum: 415d45c58cbbce01e276d80685ce3096
+
+  - FIX #48: Omit 3rd arg for getbufvar() (vim 7.3 compatibility)
+  MD5 checksum: 556e79d0556d77801d76c634f7a3be50
+version: "1.04"
+
+  - FIX: regexp-related error @ windows: properly escape backslashes
+  MD5 checksum: 7e465b9bdccd1736746d8f02ba4637e9
+version: "1.05"
+

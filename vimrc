@@ -2,8 +2,66 @@
 "
 " author: Miles Z. Sterrett <miles.sterrett@gmail.com>
 
-call pathogen#infect()
-call pathogen#helptags()
+set nocompatible  " Prevent vim from emulating vi bugs and limitations
+filetype off      " required for Vundle
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-heroku'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-markdown'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'mattn/gist-vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rorymckinley/vim-rubyhash'
+Plugin 'tomtom/quickfixsigns_vim'
+Plugin 'benmills/vimux'
+Plugin 'ervandew/supertab'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'pangloss/vim-javascript'
+Plugin 'slim-template/vim-slim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'vim-scripts/AutoClose'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 " 256 colors
 set t_Co=256
@@ -22,7 +80,6 @@ set backspace=indent,eol,start
 set title         " set terminal title
 set history=50    " keep 50 commands, etc in history
 set hidden        " More effective buffer handling
-set nocompatible  " Prevent vim from emulating vi bugs and limitations
 set showmatch     " Breifly show matching brace/parenthese/bracket
 set autoread      " Auto-reload changed files
 set ruler         " each window will contain a status line with cursor position
@@ -39,7 +96,6 @@ set smartcase     " case-smart searching
 
 " File-type highlighting and configuration
 syntax on
-filetype on
 filetype plugin on
 filetype indent on
 

@@ -3,9 +3,13 @@ Display |signs| at interesting lines:
     - items in the |quickfix| and |location-lists| (e.g. compilation errors)
     - |marks| a-zA-Z
     - changes (given the file is under a VCS like git, svn, mercurial, 
-      or bazaar)
-    - relative line numbers (show numbers only until the cursor moves)
-    - etc.
+      or bazaar -- see |g:tlib#vcs#def| for a list of supported VCSs)
+    - breakpoints: vim, R (if rer_vim is installed)
+    - cursor position
+    - relative line numbers (show numbers only until the cursor moves; 
+      this requires that you add the following command to |vimrc|: >
+        noremap <silent> <leader><c-l> :call quickfixsigns#RelNumbersOnce()<cr>
+<    - etc.
 
 Other lists can be configured via the |g:quickfixsigns_lists| variable.
 
@@ -26,6 +30,25 @@ in $VIMFILES/after/plugin/quickfixsigns.vim (by use of |sign-define|):
     QFS_REL_x ... Relative line numbers
     QFS_VCS_{ADD,DEL,CHANGE} ... VCS changes (see also 
             |g:quickfixsigns#vcsdiff#highlight|)
+
+
+Adding new sign classes~
+
+VIM plugin developers can easily define new sign classes:
+
+    1. Add the NAME of your sign class to |g:quickfixsigns_classes|
+    2. Define a variable g:quickfixsigns_class_{NAME} -- a dictionary that 
+       contains at least the following keys: sign, get. See 
+       |g:quickfixsigns_classes| for further details.
+
+On startup any files matching autoload/quickfixsigns/*.vim in the 
+'runtimepath' are loaded. When the sign class is defined in an |autoload| file, 
+you should first check whether NAME is included in |g:quickfixsigns_classes|. 
+See ../autoload/quickfixsigns/breakpoints.vim for a working example.
+
+CAVEAT: If the "get" expression entails running an external program, "event" 
+should not contain |FocusGained| and |FocusLost| events.
+
 
 CREDITS:
 quickfixsigns includes some icons from the open icon library. See 

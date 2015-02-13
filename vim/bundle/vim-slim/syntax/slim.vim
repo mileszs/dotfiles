@@ -34,7 +34,10 @@ syn cluster slimComponent contains=slimClassChar,slimIdChar,slimWrappedAttrs,sli
 syn keyword slimDocType        contained html 5 1.1 strict frameset mobile basic transitional
 syn match   slimDocTypeKeyword "^\s*\(doctype\)\s\+" nextgroup=slimDocType
 
-syn match slimTag           "\w\+"         contained contains=htmlTagName nextgroup=@slimComponent
+syn keyword slimTodo        FIXME TODO NOTE OPTIMIZE XXX contained
+syn keyword htmlTagName     contained script
+
+syn match slimTag           "\w\+[><]*"         contained contains=htmlTagName nextgroup=@slimComponent
 syn match slimIdChar        "#{\@!"        contained nextgroup=slimId
 syn match slimId            "\%(\w\|-\)\+" contained nextgroup=@slimComponent
 syn match slimClassChar     "\."           contained nextgroup=slimClass
@@ -45,9 +48,10 @@ syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*{\s*"
 syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*\[\s*" end="\s*\]\s*" contained contains=slimAttr nextgroup=slimRuby
 syn region slimWrappedAttrs matchgroup=slimWrappedAttrsDelimiter start="\s*(\s*"  end="\s*)\s*"  contained contains=slimAttr nextgroup=slimRuby
 
-syn match slimAttr "\s*\%(\w\|-\)\+\s*" contained contains=htmlArg nextgroup=slimAttrAssignment
+syn match slimAttr /\s*\%(\w\|-\)\+\s*=/me=e-1 contained contains=htmlArg nextgroup=slimAttrAssignment
 syn match slimAttrAssignment "\s*=\s*" contained nextgroup=slimWrappedAttrValue,slimAttrString
 
+syn region slimWrappedAttrValue start="[^"']" end="\s\|$" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
 syn region slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="{" end="}" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
 syn region slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="\[" end="\]" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
 syn region slimWrappedAttrValue matchgroup=slimWrappedAttrValueDelimiter start="(" end=")" contained contains=slimAttrString,@slimRubyTop nextgroup=slimAttr,slimRuby,slimInlineTagChar
@@ -59,13 +63,14 @@ syn region slimInnerAttrString start=+\s*"+ skip=+\%(\\\\\)*\\"+ end=+"\s*+ cont
 syn region slimInnerAttrString start=+\s*'+ skip=+\%(\\\\\)*\\"+ end=+'\s*+ contained contains=slimInterpolation,slimInterpolationEscape nextgroup=slimAttr
 
 syn region slimInterpolation matchgroup=slimInterpolationDelimiter start="#{" end="}" contains=@hamlRubyTop containedin=javascriptStringS,javascriptStringD,slimWrappedAttrs
+syn region slimInterpolation matchgroup=slimInterpolationDelimiter start="#{{" end="}}" contains=@hamlRubyTop containedin=javascriptStringS,javascriptStringD,slimWrappedAttrs
 syn match  slimInterpolationEscape "\\\@<!\%(\\\\\)*\\\%(\\\ze#{\|#\ze{\)"
 
-syn region slimRuby matchgroup=slimRubyOutputChar start="\s*[=]\==[']\=" skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
-syn region slimRuby matchgroup=slimRubyChar       start="\s*-"           skip=",\s*$" end="$" contained contains=@slimRubyTop keepend
+syn region slimRuby matchgroup=slimRubyOutputChar start="\s*[=]\==[']\=" skip="\%\(,\s*\|\\\)$" end="$" contained contains=@slimRubyTop keepend
+syn region slimRuby matchgroup=slimRubyChar       start="\s*-"           skip="\%\(,\s*\|\\\)$" end="$" contained contains=@slimRubyTop keepend
 
-syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/
-syn match slimText    /^\(\s*\)[`|'].*\(\n\1\s.*\)*/
+syn match slimComment /^\(\s*\)[/].*\(\n\1\s.*\)*/ contains=slimTodo
+syn match slimText    /^\(\s*\)[`|'].*\(\n\1\s.*\)*/ contains=slimInterpolation
 
 syn match slimFilter /\s*\w\+:\s*/                            contained
 syn match slimHaml   /^\(\s*\)\<haml:\>.*\(\n\1\s.*\)*/       contains=@slimHaml,slimFilter
@@ -75,6 +80,7 @@ syn match slimIEConditional "\%(^\s*/\)\@<=\[\s*if\>[^]]*]" contained containedi
 hi def link slimAttrString                String
 hi def link slimBegin                     String
 hi def link slimClass                     Type
+hi def link slimAttr                      Type
 hi def link slimClassChar                 Type
 hi def link slimComment                   Comment
 hi def link slimDocType                   Identifier
@@ -88,6 +94,7 @@ hi def link slimInterpolationDelimiter    Delimiter
 hi def link slimRubyChar                  Special
 hi def link slimRubyOutputChar            Special
 hi def link slimText                      String
+hi def link slimTodo                      Todo
 hi def link slimWrappedAttrValueDelimiter Delimiter
 hi def link slimWrappedAttrsDelimiter     Delimiter
 hi def link slimInlineTagChar             Delimiter
