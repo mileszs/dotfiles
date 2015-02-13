@@ -14,7 +14,7 @@ export ZSH_THEME="miloshadzic"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(rails ruby git osx zsh-syntax-highlighting)
+plugins=(rails ruby git osx zsh-syntax-highlighting chruby)
 
 source $ZSH/oh-my-zsh.sh
 
