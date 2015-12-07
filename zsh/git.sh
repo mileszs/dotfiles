@@ -23,6 +23,7 @@ alias gca='gc -a'
 alias gm='git merge'
 
 alias gp='git pull'
+alias gpa='git pull --all'
 alias gpp='gp && git push origin `current_git_branch`'
 alias gprp='gp && rake && gpp'
 alias gri='git rebase -i origin/master^'
@@ -53,6 +54,11 @@ alias grma='git ls-files --deleted | xargs git rm'
 alias glu='git ls-files --other --exclude-standard'
 alias glud='git ls-files --other --exclude-standard | xargs rm'
 alias glua='git ls-files --other --exclude-standard | xargs git add'
+
+alias gw='git whatchanged'
+
+alias gnext='git checkout $(git rev-list HEAD..master | tail -n 1)'
+alias gprev='git checkout HEAD~1'
 
 # Heroku
 alias pushroku='git push heroku master'

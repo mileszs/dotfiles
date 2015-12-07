@@ -1,6 +1,6 @@
 alias ll='ls -l'
 alias la='ls -A'
-alias l='ls -G'
+alias l='ls -Gla'
 alias lla='ls -la'
 
 alias t='tree -L 1 -C -h'
@@ -20,19 +20,19 @@ alias apache='sudo /etc/init.d/apache2'
 # Rails
 alias b='bundle exec'
 alias bi='bundle install'
-alias bake='noglob bundle exec rake'
-alias server='bundle exec rails server'
-alias server-thin='bundle exec rails server thin'
-alias console='bundle exec rails console'
-alias production-console='bundle exec rails console production'
-alias generate='bundle exec rails generate'
+alias bake='noglob bin/rake'
+alias server='bin/rails server'
+alias server-thin='bin/rails server thin'
+alias console='bin/rails console'
+alias production-console='bin/rails console production'
+alias generate='bin/rails generate'
 alias test='bundle exec ruby -Itest'
-alias unit-tests='bundle exec rake test:units'
-alias functional-tests='bundle exec rake test:functionals'
-alias integration-tests='bundle exec rake test:integration'
-alias tests='bundle exec rake test'
-alias specs='bundle exec rake spec && bundle exec cucumber -f progress'
-alias migrate="bundle exec rake db:migrate db:test:prepare"
+alias unit-tests='bin/rake test:units'
+alias functional-tests='bin/rake test:functionals'
+alias integration-tests='bin/rake test:integration'
+alias tests='bin/rake test'
+alias specs='bin/rake spec && bundle exec cucumber -f progress'
+alias migrate="bin/rake db:migrate db:test:prepare"
 
 alias cuke='b cucumber'
 alias testntell='b rake test:all && b rake cucumber && terminal-notifier -message "Tests are finished, mother fucker! Nice fucking job! Buy yourself a goddamned latte." -title "Tests"'
@@ -88,3 +88,8 @@ alias gsd='sudo get-shit-done'
 
 # thesaurus
 alias thes='ruby ~/dotfiles/thesaurus.rb'
+
+solarize()
+{
+  highlight -O rtf --style=solarized-light --line-numbers "$1" | pbcopy
+}

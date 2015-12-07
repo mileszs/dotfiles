@@ -1,5 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/mileszs/dotfiles/zsh'
-let g:netrw_dirhist_2='/Users/mileszs/dotfiles'
-let g:netrw_dirhist_3='/Users/mileszs/code/wellnest/app/controllers/my'
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/mileszs/code/healthpro/rms/client/app/components/provider'
+let g:netrw_dirhist_2='/Users/mileszs/code/healthpro/rms/client/app/components/provider/list'
+let g:netrw_dirhist_3='/Users/mileszs/code/hg-technologies/warmup-ninja/test/fixtures'
+let g:netrw_dirhist_4='/Users/mileszs/code/spectacle/presentation'
+let g:netrw_dirhist_5='/Users/mileszs/dotfiles/zsh'
+let g:netrw_dirhist_6='/Users/mileszs/code/hg-technologies/warmup-ninja/config/locales'
+let g:netrw_dirhist_7='/Users/mileszs/code/mobi/devpool/app/controllers/concerns'
+let g:netrw_dirhist_8='/Users/mileszs/code/mobi/devpool/lib/assets'
+let g:netrw_dirhist_9='/Users/mileszs/code/mobi/devpool/lib/tasks'

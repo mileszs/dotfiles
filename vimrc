@@ -33,7 +33,9 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-markdown'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'janx/vim-rubytest'
 Plugin 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'rorymckinley/vim-rubyhash'
 Plugin 'tomtom/quickfixsigns_vim'
@@ -47,6 +49,11 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-scripts/AutoClose'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'mileszs/vim-react-snippets'
+Plugin 'mxw/vim-jsx'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -146,6 +153,11 @@ augroup mkd
   autocmd BufRead *.mkd,*.md,*.markdown  set ai formatoptions=tcroqn2 comments=n:>
 augroup END
 
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript
+autocmd BufNewFile,BufRead *.html.slim set filetype=slim
+
+" JSX highlighting in regular JS files
+let g:jsx_ext_required = 0
 
 " tslime
 vmap <Leader>rs <Plug>SendSelectionToTmux
@@ -184,14 +196,20 @@ let g:rspec_command = "!zeus rspec {spec}"
 " let g:rspec_command = "Dispatch rspec {spec}"
 
 " RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>"
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>"
+
+let g:rubytest_cmd_test = "cd ./; bin/spring testunit %p"
+let g:rubytest_cmd_testcase = "cd ./; bin/spring testunit %p -n '/%c/'"
 
 " Split faster
 nmap <silent> vv :vsp<CR>
 nmap <silent> ss :sp<CR>
+
+" AutoClose remapping
+nmap <Leader>x <Plug>ToggleAutoCloseMappings
 
 " github
 source /Users/mileszs/.vimgithubrc

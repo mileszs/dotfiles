@@ -3,8 +3,8 @@
 " @git:         http://github.com/tomtom/quickfixsigns_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-05-08.
-" @Last Change: 2012-10-02.
-" @Revision:    493
+" @Last Change: 2015-05-07.
+" @Revision:    496
 
 if exists('g:quickfixsigns#vcsdiff#loaded')
     finish
@@ -31,6 +31,9 @@ if !exists('g:quickfixsigns#vcsdiff#vcs')
     "     "%s" is replaced with the filename.
     "     dir ... the directory name
     " Currently supported vcs: git, hg, svn, bzr
+    "
+    " Users can also use g:quickfixsigns#vcsdiff#vcs_{vcs_type} for 
+    " configuration.
     " :read: let g:quickfixsigns#vcsdiff#vcs = {...}  "{{{2
     let g:quickfixsigns#vcsdiff#vcs = {
                 \ 'git': {'cmd': 'git diff --no-ext-diff -U0 %s', 'dir': '.git'}
@@ -124,6 +127,16 @@ if g:quickfixsigns#vcsdiff#del_numbered
 endif
 
 
+function! s:Config(vcs_type) abort "{{{3
+    if exists('g:quickfixsigns#vcsdiff#vcs_'. a:vcs_type)
+        let cfg = g:quickfixsigns#vcsdiff#vcs_{a:vcs_type}
+    else
+        let cfg = get(g:quickfixsigns#vcsdiff#vcs, a:vcs_type, {})
+    endif
+    return cfg
+endf
+
+
 " :nodoc:
 function! quickfixsigns#vcsdiff#Signs(item) "{{{3
     return 'QFS_VCS_'. a:item.change
@@ -155,24 +168,30 @@ function! quickfixsigns#vcsdiff#GuessType() "{{{3
         if (exists('b:quickfixsigns_vcsdiff_guess_type') ? b:quickfixsigns_vcsdiff_guess_type : g:quickfixsigns#vcsdiff#guess_type) && empty(type)
             let path = escape(expand('%:p:h'), ',') .';'
             let depth = -1
-            for vcs in keys(g:quickfixsigns#vcsdiff#vcs)
-                let dir = g:quickfixsigns#vcsdiff#vcs[vcs].dir
-                " TLogVAR dir
-                let vcsdir = finddir(dir, path)
-                if !empty(vcsdir)
-                    let vcsdir_depth = len(split(fnamemodify(vcsdir, ':p'), '\/'))
-                    if vcsdir_depth > depth
-                        let depth = vcsdir_depth
-                        let type = vcs
-                        " TLogVAR type, depth
+            let suffixes_add = &l:suffixesadd
+            try
+                let &l:suffixesadd = ''
+                for vcs in keys(g:quickfixsigns#vcsdiff#vcs)
+                    let dir = s:Config(vcs).dir
+                    " TLogVAR dir
+                    let vcsdir = finddir(dir, path)
+                    if !empty(vcsdir)
+                        let vcsdir_depth = len(split(fnamemodify(vcsdir, ':p'), '\/'))
+                        if vcsdir_depth > depth
+                            let depth = vcsdir_depth
+                            let type = vcs
+                            " TLogVAR type, depth
+                        endif
                     endif
-                endif
-            endfor
+                endfor
+            finally
+                let &l:suffixesadd = suffixes_add
+            endtry
         endif
         let b:vcs_type = type
     endif
     " TLogVAR type
-    if has_key(g:quickfixsigns#vcsdiff#vcs, type)
+    if !empty(s:Config(type))
         return type
     else
         return ''
@@ -180,11 +199,62 @@ function! quickfixsigns#vcsdiff#GuessType() "{{{3
 endf
 
 
+" Get the list of vcsdiff signs (uncached).
 function! quickfixsigns#vcsdiff#GetList(filename) "{{{3
-    if !(type(g:quickfixsigns#vcsdiff#list_type) == 0 && g:quickfixsigns#vcsdiff#list_type >= 0 && g:quickfixsigns#vcsdiff#list_type <= 1)
-        throw "Quickfixsigns: g:quickfixsigns#vcsdiff#list_type must be 0 or 1 but was ".   g:quickfixsigns#vcsdiff#list_type
+    let list_type = g:quickfixsigns#vcsdiff#list_type
+    if !(type(list_type) == 0 && list_type >= 0 && list_type <= 1)
+        throw "Quickfixsigns: g:quickfixsigns#vcsdiff#list_type must be 0 or 1 but was ". list_type
     endif
-    return quickfixsigns#vcsdiff#GetList{g:quickfixsigns#vcsdiff#list_type}(a:filename)
+    unlet! b:qfs_vcsdiff_hunkstat b:qfs_vcsdiff_list b:qfs_vcsdiff_hunkstat_str
+    return quickfixsigns#vcsdiff#GetList{list_type}(a:filename)
+endf
+
+
+" Get the list of vcsdiff signs (cached).
+" The cache is invalidated wthen quickfixsigns#vcsdiff#GetList is called.
+function! quickfixsigns#vcsdiff#GetListCached(filename) "{{{3
+    if !exists('b:qfs_vcsdiff_list')
+        let b:qfs_vcsdiff_list = quickfixsigns#vcsdiff#GetList(a:filename)
+    endif
+    return b:qfs_vcsdiff_list
+endf
+
+
+" Get status of VCS changes as [added, modified, removed].
+function! quickfixsigns#vcsdiff#GetHunkSummary(...) "{{{3
+    let filename = a:0 ? a:1 : expand("%")
+    if filename == ''
+        return [0, 0, 0]
+    endif
+    if !exists('b:qfs_vcsdiff_hunkstat')
+        let list = quickfixsigns#vcsdiff#GetListCached(filename)
+        let r = [0, 0, 0]  " added, modified, removed.
+        for item in list
+            if item.change == 'ADD'
+                let r[0] += 1
+            elseif item.change == 'CHANGE'
+                let r[1] += 1
+            elseif item.change == 'DEL'
+                let r[2] += 1
+            endif
+        endfor
+        let b:qfs_vcsdiff_hunkstat = r
+    endif
+    return b:qfs_vcsdiff_hunkstat
+endf
+
+
+" Get status of VCS changes as string.
+function! quickfixsigns#vcsdiff#GetHunkSummaryAsString(...) "{{{3
+    if !exists('b:qfs_vcsdiff_hunkstat_str')
+        let r = call('quickfixsigns#vcsdiff#GetHunkSummary', a:000)
+        if r[0] + r[1] + r[2] == 0
+            let b:qfs_vcsdiff_hunkstat_str = ''
+        else
+            let b:qfs_vcsdiff_hunkstat_str = printf('+%s=%s-%s', r[0], r[1], r[2])
+        endif
+    endif
+    return b:qfs_vcsdiff_hunkstat_str
 endf
 
 
@@ -197,8 +267,8 @@ function! quickfixsigns#vcsdiff#GetList0(filename) "{{{3
     let vcs_type = quickfixsigns#vcsdiff#GuessType()
     " TLogVAR a:filename, vcs_type
     " Ignore files that are not readable
-    if has_key(g:quickfixsigns#vcsdiff#vcs, vcs_type) && filereadable(a:filename)
-        let cmdt = g:quickfixsigns#vcsdiff#vcs[vcs_type].cmd
+    if !empty(s:Config(vcs_type)) && filereadable(a:filename)
+        let cmdt = s:Config(vcs_type).cmd
         let dir  = fnamemodify(a:filename, ':h')
         let file = fnamemodify(a:filename, ':t')
         let cmds = join([
@@ -318,8 +388,8 @@ function! quickfixsigns#vcsdiff#GetList1(filename) "{{{3
     let vcs_type = quickfixsigns#vcsdiff#GuessType()
     " TLogVAR a:filename, vcs_type
     " Ignore files that are not readable
-    if has_key(g:quickfixsigns#vcsdiff#vcs, vcs_type) && filereadable(a:filename)
-        let cmdt = g:quickfixsigns#vcsdiff#vcs[vcs_type].cmd
+    if !empty(s:Config(vcs_type)) && filereadable(a:filename)
+        let cmdt = s:Config(vcs_type).cmd
         let dir  = fnamemodify(a:filename, ':h')
         let file = fnamemodify(a:filename, ':t')
         let cmds = join([
@@ -434,7 +504,12 @@ function! s:BalloonJoin(...) "{{{3
     if has('balloon_multiline')
         return join(a:000, "\n")
     else
-        return join(a:000, " ")
+        return join(a:000)
     endif
 endf
+
+
+if exists(':TStatusregister1')
+    TStatusregister1 --event=BufRead,BufWritePost vcs quickfixsigns#vcsdiff#GetHunkSummaryAsString()
+endif
 

@@ -4,7 +4,7 @@
 " @GIT:         http://github.com/tomtom/quickfixsigns_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2009-03-14.
-" @Last Change: 2013-03-04.
+" @Last Change: 2015-04-24.
 " @Revision:    1419
 " GetLatestVimScripts: 2584 1 :AutoInstall: quickfixsigns.vim
 
@@ -84,7 +84,7 @@ endif
 
 if !exists('g:quickfixsigns_events')
     " List of events for signs that should be frequently updated.
-    let g:quickfixsigns_events = ['BufEnter', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'InsertEnter']   "{{{2
+    let g:quickfixsigns_events = ['BufReadPost', 'BufEnter', 'CursorHold', 'CursorHoldI', 'InsertLeave', 'InsertEnter']   "{{{2
 endif
 
 
@@ -134,6 +134,13 @@ if !exists('g:quickfixsigns_balloon')
     " the sign.
     " buffer-local or global
     let g:quickfixsigns_balloon = 1   "{{{2
+endif
+
+
+if !exists('g:quickfixsigns_echo_balloon')
+    " If true, echo text in tooltip balloon also on the command line. 
+    " You may have to press ENTER to continue.
+    let g:quickfixsigns_echo_balloon = 0   "{{{2
 endif
 
 
@@ -231,8 +238,7 @@ function! s:Redir(cmd) "{{{3
 endf
 
 
-let s:signss = s:Redir('silent sign list')
-let g:quickfixsigns_signs = split(s:signss, '\n')
+let g:quickfixsigns_signs = split(s:Redir('sign list'), '\n')
 call filter(g:quickfixsigns_signs, 'v:val =~ ''^sign QFS_''')
 call map(g:quickfixsigns_signs, 'matchstr(v:val, ''^sign \zsQFS_\w\+'')')
 
@@ -553,16 +559,20 @@ function! QuickfixsignsBalloon() "{{{3
         " TLogVAR acc
         let text = join(map(acc, 'v:val.text'), "\n")
         " TLogVAR text
-        return text
     elseif exists('b:quickfixsigns_balloonexpr') && !empty(b:quickfixsigns_balloonexpr)
         let text = eval(b:quickfixsigns_balloonexpr)
         if !has('balloon_multiline')
             let text = substitute(text, '\n', ' ', 'g')
         endif
-        return text
     else
-        return ''
+        let text = ''
     endif
+    if exists('g:loaded_tlib') && g:loaded_tlib >= 39  " ignore dependency
+        if !empty(text) && g:quickfixsigns_echo_balloon
+            call tlib#notify#Echo(substitute(text, '\n', '|', 'g'), "Statement")
+        endif
+    endif
+    return text
 endf
 
 
@@ -907,7 +917,6 @@ endf
 
 runtime! autoload/quickfixsigns/*.vim
 call QuickfixsignsSelect(g:quickfixsigns_classes)
-unlet! s:signss
 
 
 augroup QuickFixSigns
