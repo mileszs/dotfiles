@@ -91,5 +91,5 @@ alias thes='ruby ~/dotfiles/thesaurus.rb'
 
 solarize()
 {
-  highlight -O rtf --style=solarized-light --line-numbers "$1" | pbcopy
+  highlight -O rtf --style=solarized-dark --line-numbers "$1" | pbcopy
 }
