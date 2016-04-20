@@ -18,6 +18,7 @@ Plugin 'gmarik/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 
+Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-rake'
@@ -54,6 +55,10 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'mileszs/vim-react-snippets'
 Plugin 'mxw/vim-jsx'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'rizzatti/dash.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'elixir-lang/vim-elixir'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -100,6 +105,8 @@ set incsearch     " search as you type
 
 set ignorecase
 set smartcase     " case-smart searching
+
+set colorcolumn=80
 
 " File-type highlighting and configuration
 syntax on
@@ -192,8 +199,7 @@ let g:rails_projections = {
       \ }
 
 let g:rspec_runner = "os_x_iterm"
-let g:rspec_command = "!zeus rspec {spec}"
-" let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command = "Dispatch rspec {spec}"
 
 " RSpec.vim mappings
 " map <Leader>t :call RunCurrentSpecFile()<CR>
@@ -210,6 +216,20 @@ nmap <silent> ss :sp<CR>
 
 " AutoClose remapping
 nmap <Leader>x <Plug>ToggleAutoCloseMappings
+
+"Map esc to jj
+inoremap jj <esc>
+
+" Configure Syntastic for linter checks
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_rubocop_checker = 1
 
 " github
 source /Users/mileszs/.vimgithubrc
