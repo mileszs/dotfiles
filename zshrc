@@ -1,20 +1,17 @@
 # This borrows from my .bashrc, of course, and also heavily from
 #  claytron: http://github.com/claytron/dotfiles
 
-# This loads RVM into a shell session.
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
-
 UNAME=$(uname)
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
 
 # Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="miloshadzic"
+export ZSH_THEME="agnoster"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(rails ruby git osx zsh-syntax-highlighting chruby vi-mode)
+plugins=(git osx zsh-syntax-highlighting vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -23,6 +20,7 @@ export EDITOR=vim
 export NODE_PATH="/usr/local/lib/node"
 
 export CDPATH=$CDPATH:$HOME:$HOME/code
+export DEFAULT_USER="mileszs"
 
 # use vi mode
 bindkey -v
@@ -82,13 +80,11 @@ typeset -U path cdpath fpath
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 export PATH="/usr/local/bin:$PATH"
 
 # chruby
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
 
 # NVM
 source ~/.nvm/nvm.sh
@@ -98,3 +94,9 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+
+# tiny-care-terminal
+export TTC_WEATHER="Indianapolis"
+export TTC_CELSIUS=false
+export TTC_REPOS="springbuk/springbuk"
+export TTC_APIKEYS=false

@@ -17,6 +17,8 @@ alias gv='mvim'
 alias sv='sudo vim'
 alias apache='sudo /etc/init.d/apache2'
 
+alias hg='history | grep'
+
 # Rails
 alias b='bundle exec'
 alias bi='bundle install'
@@ -27,6 +29,7 @@ alias console='bin/rails console'
 alias production-console='bin/rails console production'
 alias generate='bin/rails generate'
 alias test='bundle exec ruby -Itest'
+alias rspec='bundle exec rspec'
 alias unit-tests='bin/rake test:units'
 alias functional-tests='bin/rake test:functionals'
 alias integration-tests='bin/rake test:integration'

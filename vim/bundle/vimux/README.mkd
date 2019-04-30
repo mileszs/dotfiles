@@ -2,7 +2,7 @@
 
 Easily interact with tmux from vim.
 
-![vimux](https://www.braintreepayments.com/assets/images/blog/vimux3.png)
+![vimux](https://www.braintreepayments.com/blog/content/images/blog/vimux3.png)
 
 What inspired me to write vimux was [tslime.vim](https://github.com/kikijump/tslime.vim), a plugin that lets you send input to tmux. While tslime.vim works well, I felt it wasn't optimized for my primary use case which was having a smaller tmux pane that I would use to run tests or play with a REPL.
 
@@ -32,6 +32,9 @@ _Notes:_
 * [vimux-golang](https://github.com/benmills/vimux-golang) Run go tests in vimux
 * [vimux-zeus](https://github.com/jingweno/vimux-zeus) Run zeus commands in vimux
 * [vimix](https://github.com/spiegela/vimix) Run Elixir mix commands in vimux
+* [vimux-cargo](https://github.com/jtdowney/vimux-cargo) run rust tests and projects using cargo and vimux
+* [vimux-bazel-test](https://github.com/pgr0ss/vimux-bazel-test) Run bazel tests in vimux
+* [vimux-jest-test](https://github.com/tyewang/vimux-jest-test) Run jest tests in vimux
 
 ## Usage
 

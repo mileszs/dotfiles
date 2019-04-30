@@ -41,24 +41,31 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'rorymckinley/vim-rubyhash'
 Plugin 'tomtom/quickfixsigns_vim'
 Plugin 'benmills/vimux'
+Plugin 'skalnik/vim-vroom'
 Plugin 'ervandew/supertab'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'pangloss/vim-javascript'
 Plugin 'slim-template/vim-slim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'thoughtbot/vim-rspec'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-scripts/AutoClose'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
 Plugin 'mileszs/vim-react-snippets'
 Plugin 'mxw/vim-jsx'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'rizzatti/dash.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'c-brenn/phoenix.vim'
+Plugin 'tpope/vim-projectionist'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'tclem/vim-arduino'
+Plugin 'godlygeek/tabular'
+Plugin 'dart-lang/dart-vim-plugin'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -166,11 +173,6 @@ autocmd BufNewFile,BufRead *.html.slim set filetype=slim
 " JSX highlighting in regular JS files
 let g:jsx_ext_required = 0
 
-" tslime
-vmap <Leader>rs <Plug>SendSelectionToTmux
-nmap <Leader>rt <Plug>NormalModeSendToTmux
-nmap <Leader>rr <Plug>SetTmuxVars
-
 " quickfixsigns
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
 
@@ -195,20 +197,14 @@ let g:rails_projections = {
       \   "test": [
       \     "spec/forms/%s_spec.rb"
       \   ]
+      \ },
+      \ "app/lib/*.rb": {
+      \   "command": "lib",
+      \   "test": [
+      \     "spec/lib/%s_spec.rb"
+      \   ]
       \ }
       \ }
-
-let g:rspec_runner = "os_x_iterm"
-let g:rspec_command = "Dispatch rspec {spec}"
-
-" RSpec.vim mappings
-" map <Leader>t :call RunCurrentSpecFile()<CR>
-" map <Leader>s :call RunNearestSpec()<CR>
-" map <Leader>l :call RunLastSpec()<CR>
-" map <Leader>a :call RunAllSpecs()<CR>"
-
-let g:rubytest_cmd_test = "cd ./; bin/spring testunit %p"
-let g:rubytest_cmd_testcase = "cd ./; bin/spring testunit %p -n '/%c/'"
 
 " Split faster
 nmap <silent> vv :vsp<CR>
@@ -230,6 +226,27 @@ let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_rubocop_checker = 1
+let g:syntastic_javascript_checkers = ['eslint']
+
+
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.git|node_modules|doc)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': '',
+  \ }
+
+let g:vroom_clear_screen=0
+let g:vroom_use_vimux=1
+let g:vroom_use_binstubs=0
+let g:vroom_use_bundle_exec=1
+let g:vroom_rspec_version='3.x'
+let g:vroom_use_colors=0
+
+" Arduino
+" Default: /Applications/Arduino.app/Contents/Resources/Java
+let g:vim_arduino_library_path = '/Users/mileszs/code/Arduino'
+" Default: result of `$(ls /dev/tty.* | grep usb)`
+let g:vim_arduino_serial_port = '/dev/tty.usbmodem1411'
 
 " github
 source /Users/mileszs/.vimgithubrc

@@ -1,9 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/mileszs/.gem/ruby/2.2.3/gems'
-let g:netrw_dirhist_2='/Users/mileszs/.gem/ruby/2.2.3/gems/factory_girl-4.5.0'
-let g:netrw_dirhist_3='/Users/mileszs/.gem/ruby/2.2.3/gems/factory_girl-4.5.0/lib'
-let g:netrw_dirhist_4='/Users/mileszs/.gem/ruby/2.2.3/gems/factory_girl-4.5.0/lib/factory_girl'
-let g:netrw_dirhist_5='/Users/mileszs/code/springbuk/springbuk/app/assets/stylesheets/application'
-let g:netrw_dirhist_6='/Users/mileszs/code/springbuk'
-let g:netrw_dirhist_7='/Users/mileszs/code/amedco/amedco-workshop-evaluator/app/assets/javascripts'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/mileszs/code/olio/episode360-api/app/services'
+let g:netrw_dirhist_2='/Users/mileszs/code/olio/episode360-api/app/services/notify'
+let g:netrw_dirhist_3='/Users/mileszs/code/olio/api/.circleci'
