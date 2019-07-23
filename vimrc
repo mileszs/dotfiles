@@ -66,6 +66,7 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'tclem/vim-arduino'
 Plugin 'godlygeek/tabular'
 Plugin 'dart-lang/dart-vim-plugin'
+Plugin 'rhysd/vim-crystal'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
