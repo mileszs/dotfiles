@@ -36,14 +36,12 @@ Plugin 'tpope/vim-markdown'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'janx/vim-rubytest'
 Plugin 'mattn/gist-vim'
-Plugin 'mattn/webapi-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'rorymckinley/vim-rubyhash'
 Plugin 'tomtom/quickfixsigns_vim'
 Plugin 'benmills/vimux'
 Plugin 'skalnik/vim-vroom'
 Plugin 'ervandew/supertab'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'pangloss/vim-javascript'
 Plugin 'slim-template/vim-slim'
 Plugin 'altercation/vim-colors-solarized'
@@ -154,7 +152,9 @@ map ,cd :cd %:p:h<CR>
 
 " Use the mouse in terminal Vim!
 set mouse=a
-set ttymouse=xterm2
+if !has('nvim')
+  set ttymouse=xterm2
+endif
 
 " Swap ` and '.  ` is more useful in every situation
 " that I can imagine!
@@ -226,8 +226,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_rubocop_checker = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_ruby_checkers = ['rubocop']
 
 
 let g:ctrlp_custom_ignore = {

@@ -12,9 +12,9 @@ alias grep='grep --color'
 
 alias mkdir='mkdir -p'
 
-alias v='vim'
+alias v='nvim'
 alias gv='mvim'
-alias sv='sudo vim'
+alias sv='sudo nvim'
 alias apache='sudo /etc/init.d/apache2'
 
 alias hg='history | grep'

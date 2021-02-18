@@ -10,6 +10,7 @@ alias gi='git init; printf "*.swp\n.DS_Store\nThumbs.db\n" >> .gitignore'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative"
 alias glp='gl -p'
 # alias gls='git shortlog -s --'
+alias merges='git log --merges --first-parent master --pretty=format:"%h %<(10,trunc)%aN %C(white)%<(15)%ar%Creset %C(red bold)%<(15)%D%Creset %s"'
 
 alias gs='git status'
 alias gd='git diff'

@@ -11,12 +11,12 @@ export ZSH_THEME="agnoster"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx zsh-syntax-highlighting vi-mode)
+plugins=(git osx vi-mode zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export EDITOR=vim
+export EDITOR=nvim
 export NODE_PATH="/usr/local/lib/node"
 
 export CDPATH=$CDPATH:$HOME:$HOME/code
@@ -82,13 +82,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 export PATH="/usr/local/bin:$PATH"
 
-# chruby
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
-
-# NVM
-source ~/.nvm/nvm.sh
-
 # For GNU utils from homebrew
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
@@ -100,3 +93,6 @@ export TTC_WEATHER="Indianapolis"
 export TTC_CELSIUS=false
 export TTC_REPOS="springbuk/springbuk"
 export TTC_APIKEYS=false
+
+. /usr/local/opt/asdf/asdf.sh
+. /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash
