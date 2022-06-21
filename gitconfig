@@ -35,3 +35,7 @@
   tool = vimdiff
 [gui]
 	recentrepo = /Users/mileszs/code/healthpro/rms
+[pull]
+	rebase = false
+[init]
+	defaultBranch = trunk

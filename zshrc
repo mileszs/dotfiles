@@ -7,11 +7,11 @@ export ZSH=$HOME/.oh-my-zsh
 
 # Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="agnoster"
+export ZSH_THEME="oxide"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx vi-mode zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git macos vi-mode zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,11 +88,7 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
-# tiny-care-terminal
-export TTC_WEATHER="Indianapolis"
-export TTC_CELSIUS=false
-export TTC_REPOS="springbuk/springbuk"
-export TTC_APIKEYS=false
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-. /usr/local/opt/asdf/asdf.sh
 . /usr/local/opt/asdf/etc/bash_completion.d/asdf.bash
+. /usr/local/opt/asdf/asdf.sh

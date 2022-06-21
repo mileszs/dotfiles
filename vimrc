@@ -5,81 +5,58 @@
 set nocompatible  " Prevent vim from emulating vi bugs and limitations
 filetype off      " required for Vundle
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
+Plug 'janko-m/vim-test'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-heroku'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-cucumber'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-projectionist'
+Plug 'janx/vim-rubytest'
+Plug 'mattn/gist-vim'
+Plug 'tomtom/quickfixsigns_vim'
+Plug 'benmills/vimux'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tomtom/tcomment_vim'
+Plug 'preservim/vimux'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-scripts/AutoClose'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'mileszs/vim-react-snippets'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'rizzatti/dash.vim'
+Plug 'scrooloose/syntastic'
+Plug 'c-brenn/phoenix.vim'
+Plug 'godlygeek/tabular'
 
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-rake'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-heroku'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-ragtag'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-cucumber'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tpope/vim-markdown'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'janx/vim-rubytest'
-Plugin 'mattn/gist-vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'rorymckinley/vim-rubyhash'
-Plugin 'tomtom/quickfixsigns_vim'
-Plugin 'benmills/vimux'
-Plugin 'skalnik/vim-vroom'
-Plugin 'ervandew/supertab'
-Plugin 'pangloss/vim-javascript'
-Plugin 'slim-template/vim-slim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'vim-scripts/AutoClose'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-Plugin 'mileszs/vim-react-snippets'
-Plugin 'mxw/vim-jsx'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'rizzatti/dash.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'c-brenn/phoenix.vim'
-Plugin 'tpope/vim-projectionist'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'tclem/vim-arduino'
-Plugin 'godlygeek/tabular'
-Plugin 'dart-lang/dart-vim-plugin'
-Plugin 'rhysd/vim-crystal'
+" themes
+Plug 'ajmwagar/vim-deus'
+Plug 'arcticicestudio/nord-vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'sainnhe/forest-night'
+Plug 'sainnhe/sonokai'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+call plug#end()
 
 " 256 colors
 set t_Co=256
@@ -119,9 +96,37 @@ syntax on
 filetype plugin on
 filetype indent on
 
-" Preferred colorscheme
-set background=dark
-colorscheme solarized
+" Important!! for color schemes
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+" MUST OCCUR BEFORE colorscheme call!
+" configuration for forest-night
+let g:forest_night_enable_italic = 1
+let g:forest_night_disable_italic_comment = 1
+
+" MUST OCCUR BEFORE colorscheme call!
+"configuration for deus scheme
+let g:deus_termcolors=256
+
+" MUST OCCUR BEFORE colorscheme call!
+"configuration for sonokai scheme
+let g:sonokai_style = 'maia'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+
+" seoul256 (dark):
+"   Range:   233 (darkest) ~ 239 (lightest)
+"   Default: 237
+let g:seoul256_background = 234
+colo seoul256
+
+" Set colorscheme and background
+" set background=dark
+colorscheme seoul256
 
 " extended matching
 runtime macros/matchit.vim
@@ -217,6 +222,10 @@ nmap <Leader>x <Plug>ToggleAutoCloseMappings
 "Map esc to jj
 inoremap jj <esc>
 
+" CtrlP -> FZF
+nmap <C-P> :FZF<CR>
+
+
 " Configure Syntastic for linter checks
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -249,5 +258,15 @@ let g:vim_arduino_library_path = '/Users/mileszs/code/Arduino'
 " Default: result of `$(ls /dev/tty.* | grep usb)`
 let g:vim_arduino_serial_port = '/dev/tty.usbmodem1411'
 
+" vim-test
+let test#strategy = "vimux"
+noremap tsl :TestNearest<CR>
+noremap ts; :TestFile<CR>
+noremap ts' :TestSuite<CR>
+noremap tss :TestLast<CR>
+
+" Ignore deprecation warnings so I can see the results
+let test#ruby#rspec#options = '--deprecation-out /dev/null'
+
 " github
-source /Users/mileszs/.vimgithubrc
+" source /Users/mileszs/.vimgithubrc
