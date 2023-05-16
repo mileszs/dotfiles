@@ -65,7 +65,7 @@ alias gprev='git checkout HEAD~1'
 alias refetch='git fetch && git reset --hard FETCH_HEAD'
 
 # Heroku
-alias pushroku='git push heroku master'
+alias pushroku='git push heroku `current_git_branch`'
 
 function gtb() {
   git checkout -b $1 --track origin/$1
