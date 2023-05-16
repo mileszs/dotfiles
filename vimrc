@@ -7,13 +7,15 @@ filetype off      " required for Vundle
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+" optional for icon support
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'sheerun/vim-polyglot'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
@@ -26,28 +28,22 @@ Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-haml'
-Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-projectionist'
+Plug 'tomtom/quickfixsigns_vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'tomtom/tlib_vim'
 Plug 'janx/vim-rubytest'
 Plug 'mattn/gist-vim'
-Plug 'tomtom/quickfixsigns_vim'
-Plug 'benmills/vimux'
 Plug 'altercation/vim-colors-solarized'
-Plug 'tomtom/tcomment_vim'
 Plug 'preservim/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/AutoClose'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'mileszs/vim-react-snippets'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'rizzatti/dash.vim'
-Plug 'scrooloose/syntastic'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'c-brenn/phoenix.vim'
-Plug 'godlygeek/tabular'
+Plug 'dense-analysis/ale'
 
 " themes
 Plug 'ajmwagar/vim-deus'
@@ -125,7 +121,7 @@ let g:seoul256_background = 234
 colo seoul256
 
 " Set colorscheme and background
-" set background=dark
+set background=dark
 colorscheme seoul256
 
 " extended matching
@@ -176,6 +172,13 @@ augroup END
 autocmd BufRead,BufNewFile *.es6 setfiletype javascript
 autocmd BufNewFile,BufRead *.html.slim set filetype=slim
 
+" ALE linters
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'ruby': ['rubocop'],
+\}
+let g:ale_linters_explicit = 1
+
 " JSX highlighting in regular JS files
 let g:jsx_ext_required = 0
 
@@ -223,21 +226,7 @@ nmap <Leader>x <Plug>ToggleAutoCloseMappings
 inoremap jj <esc>
 
 " CtrlP -> FZF
-nmap <C-P> :FZF<CR>
-
-
-" Configure Syntastic for linter checks
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['rubocop']
-
+nnoremap <c-P> <cmd>lua require('fzf-lua').files()<CR>
 
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|node_modules|doc)$',
@@ -270,3 +259,5 @@ let test#ruby#rspec#options = '--deprecation-out /dev/null'
 
 " github
 " source /Users/mileszs/.vimgithubrc
+
+let g:python3_host_prog = '/usr/local/bin/python3' " -- Set python 3 provider
