@@ -117,18 +117,18 @@ function untar()
 function hack()
 {
   CURRENT=`git branch | grep '\*' | awk '{print $2}'`
-  git checkout master
-  git pull origin master
+  git checkout main
+  git pull origin main
   git checkout ${CURRENT}
-  git rebase master
+  git rebase main
 }
 
 function ship()
 {
   CURRENT=`git branch | grep '\*' | awk '{print $2}'`
-  git checkout master
+  git checkout main
   git merge ${CURRENT}
-  git push origin master
+  git push origin main
   git checkout ${CURRENT}
 }
 
@@ -144,4 +144,21 @@ function rserv()
   done
   echo "Port ${rport} free, starting server..."
   rails s -p ${rport}
+}
+
+function pod_ssh {
+  if [[ $1 == "production" ]]
+  then
+    kubectl config use-context production-1-26
+  elif [[ $1 == "staging" ]]
+  then
+    kubectl config use-context staging-1-26
+  else
+    kubectl config use-context testing-1-26
+  fi
+
+  POD_ID=$(kubectl get pods --field-selector=status.phase=Running | grep -m1 -E "$1-.{9,10}-" | awk '{print $1}')
+  echo "Found pod: '$POD_ID'"
+  echo "..."
+  kubectl exec -it $POD_ID -- /bin/bash
 }

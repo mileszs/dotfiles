@@ -97,3 +97,6 @@ solarize()
 {
   highlight -O rtf --style=solarized-dark --line-numbers "$1" | pbcopy
 }
+
+# kubernetes
+alias k=kubectl
