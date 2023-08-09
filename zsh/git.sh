@@ -26,7 +26,7 @@ alias gm='git merge'
 alias gp='git pull'
 alias gpa='git pull --all'
 alias gpp='gp && git push origin `current_git_branch`'
-alias push='git push origin `current_git_branch`'
+alias push='git push -u origin `current_git_branch`'
 alias gprp='gp && rake && gpp'
 alias gri='git rebase -i origin/master^'
 alias grc='git rebase --continue'
@@ -48,6 +48,7 @@ alias gb='git branch'
 # complete -o default -o nospace -F _git_branch gb
 
 alias gtrack='git branch --track'
+alias gtracksame='git branch --set-upstream-to=origin/`current_git_branch` `current_git_branch`'
 
 alias gcb='git checkout -b'
 # complete -o default -o nospace -F _git_branch gcb

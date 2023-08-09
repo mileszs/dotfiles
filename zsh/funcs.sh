@@ -149,12 +149,12 @@ function rserv()
 function pod_ssh {
   if [[ $1 == "production" ]]
   then
-    kubectl config use-context production-1-26
+    kubectl config use-context production-1-27
   elif [[ $1 == "staging" ]]
   then
-    kubectl config use-context staging-1-26
+    kubectl config use-context staging-1-27
   else
-    kubectl config use-context testing-1-26
+    kubectl config use-context testing-1-27
   fi
 
   POD_ID=$(kubectl get pods --field-selector=status.phase=Running | grep -m1 -E "$1-.{9,10}-" | awk '{print $1}')
