@@ -1,3 +1,5 @@
+alias reload='source ~/.zshrc'
+
 alias ls='lsd'
 alias ll='ls -l'
 alias la='ls -A'

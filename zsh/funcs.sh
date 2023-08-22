@@ -162,3 +162,22 @@ function pod_ssh {
   echo "..."
   kubectl exec -it $POD_ID -- /bin/bash
 }
+
+function bender_update {
+  if [[ $1 == "production" ]]
+  then
+    aws eks update-kubeconfig --name production-1-27 --alias production-1-27
+  elif [[ $1 == "staging" ]]
+  then
+    aws eks update-kubeconfig --name staging-1-27 --alias staging-1-27
+  else
+    aws eks update-kubeconfig --name testing-1-27 --alias testing-1-27
+  fi
+
+}
+
+function bender_login {
+  aws sso login
+  bender_update($1)
+  pod_ssh($1)
+}
