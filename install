@@ -2,23 +2,44 @@
 
 home = File.expand_path('~')
 config_dir = File.join(home, '.config')
+linked = []
+skipped = []
+
+def link(source, target, linked, skipped)
+  if File.exist?(target)
+    skipped << target
+  else
+    `ln -s #{source} #{target}`
+    linked << target
+  end
+end
 
 Dir['*'].each do |file|
   next if file =~ /install/
   next if file =~ /README.md/
 
   if file == 'config'
-    # Symlink each item in config/ to ~/.config/
     Dir.mkdir(config_dir) unless Dir.exist?(config_dir)
     Dir['config/*'].each do |config_item|
       name = File.basename(config_item)
       target = File.join(config_dir, name)
-      next if File.exist?(target)
-      `ln -s #{File.expand_path(config_item)} #{target}`
+      link(File.expand_path(config_item), target, linked, skipped)
     end
   else
     target = File.join(home, ".#{file}")
-    next if File.exist?(target)
-    `ln -s #{File.expand_path(file)} #{target}`
+    link(File.expand_path(file), target, linked, skipped)
   end
 end
+
+if linked.any?
+  puts "Linked:"
+  linked.each { |f| puts "  #{f}" }
+end
+
+if skipped.any?
+  puts "Skipped (already exists):"
+  skipped.each { |f| puts "  #{f}" }
+end
+
+puts "Done!" if linked.empty? && skipped.empty?
+puts "All symlinks in place." if linked.empty? && skipped.any?
