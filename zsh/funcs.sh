@@ -203,10 +203,10 @@ function pr_watch {
     else
       echo ""
       if echo "$STATUS" | grep -qv "SUCCESS"; then
-        osascript -e "display notification \"Some checks failed\" with title \"PR #$PR\" sound name \"Basso\""
+        terminal-notifier -title "PR #$PR" -message "Some checks failed" -sound Basso
         echo "PR #$PR: Some checks failed"
       else
-        osascript -e "display notification \"All checks passed!\" with title \"PR #$PR\" sound name \"Glass\""
+        terminal-notifier -title "PR #$PR" -message "All checks passed!" -sound Glass
         echo "PR #$PR: All checks passed!"
       fi
       break
