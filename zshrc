@@ -97,6 +97,8 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+eval "$(zoxide init zsh)"
+
 . /usr/local/opt/asdf/libexec/asdf.sh
 
 if [ "i386" = $(arch) ]; then
