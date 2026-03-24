@@ -77,10 +77,11 @@ unset GREP_OPTIONS
 
 typeset -U path cdpath fpath
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+# Source ARM version of homebrew
+eval $(/opt/homebrew/bin/brew shellenv)
 
-export PATH="/usr/local/bin:$PATH"
+# Alias the intel/rosetta version of homebrew
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
 
 # For GNU utils from homebrew
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -88,6 +89,23 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
+# For PG
+export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
+
+# the following has resolved issues with silicon mac and opensearch access via ruby
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 . /usr/local/opt/asdf/libexec/asdf.sh
+
+if [ "i386" = $(arch) ]; then
+  export PS1="%F{red}[rosetta]%f $PS1"
+fi
+
+# Created by `pipx` on 2024-10-27 02:32:38
+export PATH="$PATH:/Users/mileszs/.local/bin"
+
+# peon-ping quick controls
+alias peon="bash /Users/mileszs/.claude/hooks/peon-ping/peon.sh"
+[ -f /Users/mileszs/.claude/hooks/peon-ping/completions.bash ] && source /Users/mileszs/.claude/hooks/peon-ping/completions.bash

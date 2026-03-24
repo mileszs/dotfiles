@@ -73,3 +73,7 @@ export NVM_DIR="/Users/mileszs/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# peon-ping quick controls
+alias peon="bash /Users/mileszs/.claude/hooks/peon-ping/peon.sh"
+[ -f /Users/mileszs/.claude/hooks/peon-ping/completions.bash ] && source /Users/mileszs/.claude/hooks/peon-ping/completions.bash

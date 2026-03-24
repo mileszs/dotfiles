@@ -181,3 +181,35 @@ function bender_login {
   bender_update($1)
   pod_ssh($1)
 }
+
+# Watch a GitHub PR and notify when checks complete
+function pr_watch {
+  PR=${1:-$(gh pr view --json number -q .number 2>/dev/null)}
+
+  if [ -z "$PR" ]; then
+    echo "Usage: pr_watch [PR number]"
+    echo "Or run from a branch with an open PR"
+    return 1
+  fi
+
+  echo -n "Watching PR #$PR"
+
+  while true; do
+    STATUS=$(gh pr checks "$PR" --json state -q '.[].state' 2>/dev/null | sort -u)
+
+    if echo "$STATUS" | grep -q "PENDING"; then
+      echo -n "."
+      sleep 60
+    else
+      echo ""
+      if echo "$STATUS" | grep -qv "SUCCESS"; then
+        osascript -e "display notification \"Some checks failed\" with title \"PR #$PR\" sound name \"Basso\""
+        echo "PR #$PR: Some checks failed"
+      else
+        osascript -e "display notification \"All checks passed!\" with title \"PR #$PR\" sound name \"Glass\""
+        echo "PR #$PR: All checks passed!"
+      fi
+      break
+    fi
+  done
+}
