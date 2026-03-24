@@ -32,7 +32,7 @@
 [github]
 	user = mileszs
 [merge]
-  tool = vimdiff
+  tool = nvimdiff
 [gui]
 	recentrepo = /Users/mileszs/code/healthpro/rms
 [pull]

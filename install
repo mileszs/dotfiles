@@ -1,12 +1,24 @@
 #!/usr/bin/env ruby
 
 home = File.expand_path('~')
+config_dir = File.join(home, '.config')
 
 Dir['*'].each do |file|
   next if file =~ /install/
   next if file =~ /README.md/
-  target = File.join(home, ".#{file}")
-  next if File.exists?(target)
-  `ln -s #{File.expand_path file} #{target}`
-end
 
+  if file == 'config'
+    # Symlink each item in config/ to ~/.config/
+    Dir.mkdir(config_dir) unless Dir.exist?(config_dir)
+    Dir['config/*'].each do |config_item|
+      name = File.basename(config_item)
+      target = File.join(config_dir, name)
+      next if File.exist?(target)
+      `ln -s #{File.expand_path(config_item)} #{target}`
+    end
+  else
+    target = File.join(home, ".#{file}")
+    next if File.exist?(target)
+    `ln -s #{File.expand_path(file)} #{target}`
+  end
+end
