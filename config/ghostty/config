@@ -17,8 +17,7 @@ keybind = ctrl+space>k=new_split:up
 keybind = ctrl+space>l=new_split:right
 keybind = ctrl+space>f=toggle_split_zoom
 
-keybind = ctrl+a>n=next_tab
-keybind = ctrl+a>p=previous_tab
+keybind = cmd+shift+t=prompt_tab_title
 
 keybind = super+r=reload_config
 
