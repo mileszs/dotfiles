@@ -1,0 +1,55 @@
+# Starship prompt config
+# Docs: https://starship.rs/config/
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$ruby\
+$docker_context\
+$character"""
+
+# Only show last directory
+[directory]
+truncation_length = 1
+truncate_to_repo = false
+
+# Git branch
+[git_branch]
+format = '[$branch]($style) '
+style = 'blue'
+
+# Git status with file counts
+[git_status]
+format = '([$modified~$untracked?$staged+$deleted-]($style) )'
+style = 'purple'
+modified = '${count}'
+untracked = '${count}'
+staged = '${count}'
+deleted = '${count}'
+
+# Prompt character - red on error
+[character]
+success_symbol = '[ᐅ](teal)'
+error_symbol = '[ᐅ](red)'
+
+# Ruby version (only shows when relevant)
+[ruby]
+format = '[$version]($style) '
+style = 'red'
+detect_files = ['Gemfile', '.ruby-version']
+
+# Docker (auto-shows when in docker context)
+[docker_context]
+format = '[$context]($style) '
+style = 'blue'
+
+# Disable things we don't need
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[package]
+disabled = true

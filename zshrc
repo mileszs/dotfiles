@@ -5,9 +5,8 @@ UNAME=$(uname)
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set to the name theme to load.
-# Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="muse"
+# Disable oh-my-zsh theme (using starship instead)
+export ZSH_THEME=""
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -98,6 +97,7 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
 
 . /usr/local/opt/asdf/libexec/asdf.sh
 
