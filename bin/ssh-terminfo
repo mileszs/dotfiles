@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+#   ssh-terminfo <host> [host...]
+#
+# Copy the local terminfo entry for $TERM to remote machines.
+#
+# Terminal emulators ship their own terminfo, and ncurses on the far end has
+# never heard of it: SSH forwards TERM=xterm-ghostty to a box whose ncurses
+# only knows xterm, so every curses program there falls back to something
+# dumb and line editing starts drawing garbage. The fix is one-shot per host
+# — pipe the entry over and let the remote tic compile it into ~/.terminfo.
+#
+# Run this from the machine you are sitting at, not from the server.
+#
+# Set TERMINFO_NAME to send an entry other than the current $TERM.
+
+set -euo pipefail
+
+term="${TERMINFO_NAME:-${TERM:-}}"
+
+if [ "$#" -eq 0 ]; then
+  echo "usage: ssh-terminfo <host> [host...]" >&2
+  exit 64
+fi
+
+if [ -z "$term" ]; then
+  echo "ssh-terminfo: TERM is unset and TERMINFO_NAME was not given" >&2
+  exit 1
+fi
+
+if ! entry="$(infocmp -x "$term" 2>/dev/null)"; then
+  echo "ssh-terminfo: no local terminfo entry for '$term'" >&2
+  exit 1
+fi
+
+status=0
+
+for host in "$@"; do
+  # -x keeps the extended capabilities (truecolor, styled underlines) that are
+  # the whole reason for shipping the real entry instead of settling for xterm.
+  if printf '%s\n' "$entry" | ssh "$host" -- tic -x - 2>&1; then
+    printf 'ssh-terminfo: installed %s on %s\n' "$term" "$host"
+  else
+    printf 'ssh-terminfo: failed to install %s on %s\n' "$term" "$host" >&2
+    status=1
+  fi
+done
+
+exit "$status"

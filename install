@@ -1,45 +1,404 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
+#
+# Install these dotfiles on macOS or Linux.
+#
+#   ./install                 # install packages, bootstrap zsh, link everything
+#   ./install --no-packages   # just the symlinks and zsh bootstrap
+#   ./install --headless      # force-skip GUI terminal configs (kitty, ghostty)
+#   ./install --gui           # force-link GUI terminal configs
+#   ./install --force         # back up anything in the way and relink
+#   ./install --dry-run       # say what would happen, touch nothing
+#
+# Written for bash 3.2 so it runs on a stock macOS shell as well as Linux.
 
-home = File.expand_path('~')
-config_dir = File.join(home, '.config')
-linked = []
-skipped = []
+set -euo pipefail
 
-def link(source, target, linked, skipped)
-  if File.exist?(target)
-    skipped << target
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HOME_DIR="${HOME}"
+CONFIG_DIR="${HOME_DIR}/.config"
+
+# Top-level repo entries that are not meant to be linked into $HOME.
+SKIP_ENTRIES="install README.md LICENSE config"
+
+# ~/.config entries that only make sense with a display attached.
+GUI_CONFIGS="kitty ghostty"
+
+DO_PACKAGES=1
+FORCE=0
+DRY_RUN=0
+HEADLESS=""      # empty means "detect"
+
+linked=()
+already=()
+skipped=()
+omitted=()
+notes=()
+
+# --------------------------------------------------------------------------
+# Arguments
+# --------------------------------------------------------------------------
+
+usage() {
+  sed -n '3,12p' "${BASH_SOURCE[0]}" | sed -e 's/^#//' -e 's/^ //'
+  exit 0
+}
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --no-packages) DO_PACKAGES=0 ;;
+    --headless)    HEADLESS=1 ;;
+    --gui)         HEADLESS=0 ;;
+    --force)       FORCE=1 ;;
+    --dry-run)     DRY_RUN=1 ;;
+    -h|--help)     usage ;;
+    *) echo "install: unknown option '$1' (try --help)" >&2; exit 2 ;;
+  esac
+  shift
+done
+
+# --------------------------------------------------------------------------
+# Platform
+# --------------------------------------------------------------------------
+
+case "$(uname -s)" in
+  Darwin) OS=macos ;;
+  Linux)  OS=linux ;;
+  *)      OS=unknown ;;
+esac
+
+# A box with no display server and no GUI terminal has no use for kitty or
+# ghostty configs. macOS always counts as a GUI machine.
+if [ -z "$HEADLESS" ]; then
+  if [ "$OS" = macos ]; then
+    HEADLESS=0
+  elif [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; then
+    HEADLESS=0
   else
-    `ln -s #{source} #{target}`
-    linked << target
-  end
-end
+    HEADLESS=1
+  fi
+fi
 
-Dir['*'].each do |file|
-  next if file =~ /install/
-  next if file =~ /README.md/
-
-  if file == 'config'
-    Dir.mkdir(config_dir) unless Dir.exist?(config_dir)
-    Dir['config/*'].each do |config_item|
-      name = File.basename(config_item)
-      target = File.join(config_dir, name)
-      link(File.expand_path(config_item), target, linked, skipped)
-    end
+say()  { printf '%s\n' "$*"; }
+warn() { printf '%s\n' "$*" >&2; }
+run()  {
+  if [ "$DRY_RUN" -eq 1 ]; then
+    say "  [dry-run] $*"
   else
-    target = File.join(home, ".#{file}")
-    link(File.expand_path(file), target, linked, skipped)
-  end
-end
+    "$@"
+  fi
+}
 
-if linked.any?
-  puts "Linked:"
-  linked.each { |f| puts "  #{f}" }
-end
+have() { command -v "$1" >/dev/null 2>&1; }
 
-if skipped.any?
-  puts "Skipped (already exists):"
-  skipped.each { |f| puts "  #{f}" }
-end
+# --------------------------------------------------------------------------
+# Packages
+#
+# Each row is  command|apt package|brew package|alternate command name
+# An empty package field means "not available from this package manager".
+# The alternate command covers Debian's renamed binaries (fdfind, batcat).
+# --------------------------------------------------------------------------
 
-puts "Done!" if linked.empty? && skipped.empty?
-puts "All symlinks in place." if linked.empty? && skipped.any?
+CORE_PKGS="
+zsh|zsh|zsh|
+git|git|git|
+tmux|tmux|tmux|
+nvim|neovim|neovim|
+fzf|fzf|fzf|
+rg|ripgrep|ripgrep|
+fd|fd-find|fd|fdfind
+bat|bat|bat|batcat
+lsd|lsd|lsd|
+tree|tree|tree|
+zoxide|zoxide|zoxide|
+delta|git-delta|git-delta|
+jq|jq|jq|
+curl|curl|curl|
+unzip|unzip|unzip|
+gh|gh|gh|
+lsof|lsof||
+highlight|highlight|highlight|
+nmap|nmap|nmap|
+"
+
+MACOS_PKGS="
+gsed|:|gnu-sed|
+gdate|:|coreutils|
+terminal-notifier|:|terminal-notifier|
+"
+
+# Only useful when there is actually a display to copy into / notify on.
+LINUX_GUI_PKGS="
+xclip|xclip||
+wl-copy|wl-clipboard||
+notify-send|libnotify-bin||
+"
+
+# Reads the table above; sets MISSING_CMDS and MISSING_PKGS.
+collect_missing() {
+  local table="$1" field="$2"
+  local row cmd apt brew alt pkg
+  MISSING_CMDS=""
+  MISSING_PKGS=""
+  while IFS='|' read -r cmd apt brew alt; do
+    [ -z "$cmd" ] && continue
+    have "$cmd" && continue
+    [ -n "$alt" ] && have "$alt" && continue
+    if [ "$field" = apt ]; then pkg="$apt"; else pkg="$brew"; fi
+    [ -z "$pkg" ] && continue
+    [ "$pkg" = ":" ] && continue
+    MISSING_CMDS="$MISSING_CMDS $cmd"
+    MISSING_PKGS="$MISSING_PKGS $pkg"
+  done <<EOF
+$table
+EOF
+}
+
+install_packages_apt() {
+  collect_missing "$CORE_PKGS" apt
+  local pkgs="$MISSING_PKGS"
+  if [ "$HEADLESS" -eq 0 ]; then
+    collect_missing "$LINUX_GUI_PKGS" apt
+    pkgs="$pkgs $MISSING_PKGS"
+  fi
+
+  pkgs="$(echo "$pkgs" | tr ' ' '\n' | grep -v '^$' | sort -u | tr '\n' ' ')"
+  if [ -z "${pkgs// /}" ]; then
+    say "All packages already installed."
+    return
+  fi
+
+  # Recorded before the attempt so the failure note can name the packages.
+  MISSING_AFTER="$(echo "$pkgs" | sed 's/ *$//')"
+
+  say "Installing with apt: $MISSING_AFTER"
+  run sudo apt-get update -qq || return 1
+  # shellcheck disable=SC2086
+  run sudo apt-get install -y $pkgs || return 1
+  MISSING_AFTER=""
+}
+
+install_packages_brew() {
+  if ! have brew; then
+    notes+=("Homebrew is not installed. Install it, then re-run ./install:")
+    notes+=("  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"")
+    return
+  fi
+
+  collect_missing "$CORE_PKGS" brew
+  local pkgs="$MISSING_PKGS"
+  collect_missing "$MACOS_PKGS" brew
+  pkgs="$pkgs $MISSING_PKGS"
+
+  pkgs="$(echo "$pkgs" | tr ' ' '\n' | grep -v '^$' | sort -u | tr '\n' ' ')"
+  if [ -z "${pkgs// /}" ]; then
+    say "All packages already installed."
+    return
+  fi
+
+  MISSING_AFTER="$(echo "$pkgs" | sed 's/ *$//')"
+
+  say "Installing with brew: $MISSING_AFTER"
+  # shellcheck disable=SC2086
+  run brew install $pkgs || return 1
+  MISSING_AFTER=""
+}
+
+# A failed package step must not take the symlinks down with it — sudo timing
+# out or one bad package name is no reason to leave the machine unconfigured.
+install_packages() {
+  MISSING_AFTER=""
+  local ok=1
+
+  case "$OS" in
+    linux)
+      if have apt-get; then
+        install_packages_apt || ok=0
+      elif have brew; then
+        install_packages_brew || ok=0
+      else
+        notes+=("No apt-get or brew found; install the missing tools by hand.")
+      fi
+      ;;
+    macos) install_packages_brew || ok=0 ;;
+    *)     notes+=("Unknown platform '$(uname -s)'; skipping package install.") ;;
+  esac
+
+  if [ "$ok" -eq 0 ]; then
+    warn ""
+    warn "Package install did not complete — continuing with the rest of the setup."
+    notes+=("Packages were not installed. Finish that step yourself:")
+    if [ "$OS" = macos ] || { [ "$OS" = linux ] && ! have apt-get; }; then
+      notes+=("  brew install${MISSING_AFTER:+ $MISSING_AFTER}")
+    else
+      notes+=("  sudo apt-get install -y${MISSING_AFTER:+ $MISSING_AFTER}")
+    fi
+  fi
+}
+
+# --------------------------------------------------------------------------
+# zsh: oh-my-zsh and the two custom plugins zshrc expects
+# --------------------------------------------------------------------------
+
+ZSH_DIR="${ZSH:-$HOME_DIR/.oh-my-zsh}"
+ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$ZSH_DIR/custom}"
+
+bootstrap_oh_my_zsh() {
+  if [ -d "$ZSH_DIR/.git" ] || [ -r "$ZSH_DIR/oh-my-zsh.sh" ]; then
+    say "oh-my-zsh already present."
+  else
+    say "Cloning oh-my-zsh into $ZSH_DIR"
+    run git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$ZSH_DIR"
+  fi
+
+  local name url dir
+  for spec in \
+    "zsh-autosuggestions|https://github.com/zsh-users/zsh-autosuggestions" \
+    "zsh-syntax-highlighting|https://github.com/zsh-users/zsh-syntax-highlighting"
+  do
+    name="${spec%%|*}"
+    url="${spec#*|}"
+    dir="$ZSH_CUSTOM_DIR/plugins/$name"
+    if [ -d "$dir" ]; then
+      say "$name already present."
+    else
+      say "Cloning $name"
+      run git clone --depth=1 "$url" "$dir"
+    fi
+  done
+}
+
+# asdf >= 0.16 is a single Go binary with no asdf.sh; completions are
+# generated on demand instead of shipped.
+bootstrap_asdf_completions() {
+  have asdf || return 0
+  asdf completion zsh >/dev/null 2>&1 || return 0
+
+  local data_dir="${ASDF_DATA_DIR:-$HOME_DIR/.asdf}"
+  [ "$DRY_RUN" -eq 1 ] && { say "  [dry-run] write $data_dir/completions/_asdf"; return 0; }
+  mkdir -p "$data_dir/completions"
+  asdf completion zsh > "$data_dir/completions/_asdf"
+  say "Wrote asdf completions to $data_dir/completions/_asdf"
+}
+
+# --------------------------------------------------------------------------
+# Symlinks
+# --------------------------------------------------------------------------
+
+link() {
+  local source="$1" target="$2"
+
+  if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
+    already+=("$target")
+    return
+  fi
+
+  # -e is false for a broken symlink, so test -L separately or we would
+  # silently leave dangling links from an older install in place.
+  if [ -e "$target" ] || [ -L "$target" ]; then
+    if [ "$FORCE" -eq 1 ]; then
+      local backup="$target.backup-$(date +%Y%m%d%H%M%S)"
+      run mv "$target" "$backup"
+      run ln -s "$source" "$target"
+      linked+=("$target (backed up old copy to $(basename "$backup"))")
+    else
+      skipped+=("$target")
+    fi
+    return
+  fi
+
+  run ln -s "$source" "$target"
+  linked+=("$target")
+}
+
+should_skip_entry() {
+  local name="$1" skip
+  for skip in $SKIP_ENTRIES; do
+    [ "$name" = "$skip" ] && return 0
+  done
+  return 1
+}
+
+is_gui_config() {
+  local name="$1" gui
+  for gui in $GUI_CONFIGS; do
+    [ "$name" = "$gui" ] && return 0
+  done
+  return 1
+}
+
+link_everything() {
+  local entry name
+
+  for entry in "$DOTFILES"/*; do
+    name="$(basename "$entry")"
+    should_skip_entry "$name" && continue
+    link "$entry" "$HOME_DIR/.$name"
+  done
+
+  run mkdir -p "$CONFIG_DIR"
+  for entry in "$DOTFILES"/config/*; do
+    name="$(basename "$entry")"
+    if [ "$HEADLESS" -eq 1 ] && is_gui_config "$name"; then
+      omitted+=("$name")
+      continue
+    fi
+    link "$entry" "$CONFIG_DIR/$name"
+  done
+}
+
+# --------------------------------------------------------------------------
+# Go
+# --------------------------------------------------------------------------
+
+say "dotfiles: $DOTFILES"
+say "platform: $OS ($([ "$HEADLESS" -eq 1 ] && echo headless || echo gui))"
+say ""
+
+if [ "$DO_PACKAGES" -eq 1 ]; then
+  install_packages
+  say ""
+fi
+
+# Same reasoning as packages: a network hiccup cloning oh-my-zsh should not
+# cost you the symlinks. zshrc degrades gracefully when it isn't there.
+if ! bootstrap_oh_my_zsh; then
+  warn "oh-my-zsh bootstrap did not complete — continuing."
+  notes+=("oh-my-zsh bootstrap failed; re-run ./install --no-packages to retry.")
+fi
+bootstrap_asdf_completions || true
+say ""
+
+link_everything
+
+# --------------------------------------------------------------------------
+# Report
+# --------------------------------------------------------------------------
+
+report() {
+  local heading="$1"; shift
+  [ $# -eq 0 ] && return
+  say "$heading"
+  printf '  %s\n' "$@"
+  say ""
+}
+
+say ""
+report "Linked:"         ${linked[@]+"${linked[@]}"}
+report "Already linked:" ${already[@]+"${already[@]}"}
+report "Not linked (GUI-only config, this machine is headless — use --gui to override):" \
+                         ${omitted[@]+"${omitted[@]}"}
+report "Skipped (something else is already there — use --force to replace):" \
+                         ${skipped[@]+"${skipped[@]}"}
+
+if [ "${SHELL:-}" != "$(command -v zsh 2>/dev/null)" ] && have zsh; then
+  notes+=("Your login shell is ${SHELL:-unset}. To switch to zsh:")
+  notes+=("  chsh -s $(command -v zsh)")
+fi
+
+if [ "$OS" = linux ] && ! have ruby; then
+  notes+=("No ruby on this box, so ~/.gemrc, ~/.irbrc and the 'thes' alias are inert.")
+fi
+
+report "Notes:" ${notes[@]+"${notes[@]}"}
+
+say "Done. Start a new shell (or 'exec zsh') to pick everything up."

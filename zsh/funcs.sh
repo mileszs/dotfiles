@@ -12,12 +12,12 @@ function find_grep() {
 }
 
 function touch {
-  dir=`expr "$1" : '\(.*\/\)'`
-  if [ $dir ]
-    then
-mkdir -p $dir
-  fi
-  /usr/bin/touch $1
+  # :h is zsh's dirname; it yields "." for a bare filename, which needs no mkdir.
+  local dir=${1:h}
+  [[ -n $dir && $dir != "." && $dir != $1 ]] && mkdir -p $dir
+  # `command` rather than /usr/bin/touch, so the GNU coreutils build wins on
+  # macOS when it's first on PATH.
+  command touch "$@"
 }
 
 # File & String Related Functions
@@ -84,23 +84,36 @@ function my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
 function pp() { my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
 
 # get IP address
+#
+# The old 'inet addr:' format came from net-tools ifconfig and no longer shows
+# up on either platform: modern Linux uses ip(8), and macOS ifconfig prints
+# a plain 'inet '. Handle both, skipping loopback.
 function myip()
 {
-  IP=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`;
+  if (( $+commands[ip] )); then
+    IP=$(ip -4 -oneline addr show scope global | awk '{split($4, a, "/"); print a[1]}')
+  else
+    IP=$(ifconfig | awk '/inet / && $2 != "127.0.0.1" { print $2 }')
+  fi
   echo $IP
 }
 
 # get current host related info
 function ii()
 {
-  echo -e "\nYou are logged on ${BLUE}$HOSTNAME${NC}"
+  echo -e "\nYou are logged on ${BLUE}$HOST${NC}"
   echo -e "\nAdditionnal information:$NC " ; uname -a
   echo -e "\n${RED}Users logged on:$NC " ; w -h
   echo -e "\n${RED}Current date :$NC " ; date
   echo -e "\n${RED}Machine stats :$NC " ; uptime
-  echo -e "\n${RED}Memory stats :$NC " ; free
-  myip > /dev/null 2>&1
-  echo -e "\n${RED}Local IP Address :$NC" ; echo ${IP:-"Not connected"}
+  echo -e "\n${RED}Memory stats :$NC "
+  # free(1) is Linux-only; vm_stat is the macOS equivalent.
+  if (( $+commands[free] )); then
+    free -h
+  else
+    vm_stat
+  fi
+  echo -e "\n${RED}Local IP Address :$NC" ; myip
   echo
 }
 
@@ -178,8 +191,8 @@ function bender_update {
 
 function bender_login {
   aws sso login
-  bender_update($1)
-  pod_ssh($1)
+  bender_update "$1"
+  pod_ssh "$1"
 }
 
 # Watch a GitHub PR and notify when checks complete
@@ -202,12 +215,11 @@ function pr_watch {
       sleep 60
     else
       echo ""
+      # notify (in ~/.bin) uses terminal-notifier, notify-send, or the bell.
       if echo "$STATUS" | grep -qv "SUCCESS"; then
-        terminal-notifier -title "PR #$PR" -message "Some checks failed" -sound Basso
-        echo "PR #$PR: Some checks failed"
+        notify "PR #$PR" "Some checks failed"
       else
-        terminal-notifier -title "PR #$PR" -message "All checks passed!" -sound Glass
-        echo "PR #$PR: All checks passed!"
+        notify "PR #$PR" "All checks passed!"
       fi
       break
     fi
