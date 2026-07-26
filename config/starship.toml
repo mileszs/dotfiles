@@ -2,12 +2,20 @@
 # Docs: https://starship.rs/config/
 
 format = """
+${env_var.rosetta}\
 $directory\
 $git_branch\
 $git_status\
 $ruby\
 $docker_context\
 $character"""
+
+# Rosetta warning. zshrc exports ROSETTA_SHELL only under an i386 shell, and
+# the module renders nothing when the variable is unset.
+[env_var.rosetta]
+variable = 'ROSETTA_SHELL'
+format = '[\[rosetta\]]($style) '
+style = 'red bold'
 
 # Only show last directory
 [directory]

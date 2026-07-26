@@ -201,9 +201,12 @@ if [[ -d $HOME/.claude/hooks/peon-ping ]]; then
     source $HOME/.claude/hooks/peon-ping/completions.bash
 fi
 
-# Flag a shell that ended up under Rosetta.
+# Flag a shell that ended up under Rosetta. starship redraws PS1 on every
+# prompt, so it renders the flag from this variable via [env_var.rosetta] in
+# config/starship.toml; only touch PS1 ourselves when starship isn't driving it.
 if (( IS_MACOS )) && [[ "$(arch)" == i386 ]]; then
-  export PS1="%F{red}[rosetta]%f $PS1"
+  export ROSETTA_SHELL=1
+  (( $+commands[starship] )) || export PS1="%F{red}[rosetta]%f $PS1"
 fi
 
 unset GREP_OPTIONS
