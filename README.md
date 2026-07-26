@@ -64,3 +64,15 @@ at a time, run from the machine you are sitting at:
 It pipes the local entry for `$TERM` through `tic` on the far end, into
 `~/.terminfo`. Once per host is enough. Set `TERMINFO_NAME` to send some entry
 other than the current `$TERM`.
+
+Remembering to run it is the hard part, so `goto` does it for you:
+
+    goto beorn
+
+That is `ssh`, except the first visit to a host copies the terminfo entry
+first. It keeps a marker per host *and* per `$TERM` under
+`~/.cache/ssh-terminfo`, so later connections go straight through and switching
+terminal emulators re-syncs; `goto -f beorn` recopies on demand. If the far end
+has no `tic` to compile the entry, it connects with `TERM=xterm-256color`
+rather than leaving you with a garbled screen. Extra arguments pass through to
+`ssh`, and it borrows ssh's own host completion.

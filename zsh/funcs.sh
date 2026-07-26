@@ -225,3 +225,58 @@ function pr_watch {
     fi
   done
 }
+
+# goto [-f] <host> [command...]
+#
+# ssh, with the terminfo dance handled for you. Ghostty ships its own terminfo
+# entry, so a plain `ssh beorn` forwards TERM=xterm-ghostty to a box whose
+# ncurses has never heard of it and curses programs there draw garbage.
+# ~/.bin/ssh-terminfo fixes a host for good, but only if you remember to run it.
+# This runs it the first time you visit a host, then gets out of the way.
+#
+# The marker is per host *and* per TERM, so switching terminal emulators
+# re-syncs rather than silently reusing a stale entry. `goto -f host` recopies.
+function goto {
+  local force=0
+  if [[ $1 == -f || $1 == --force ]]; then
+    force=1
+    shift
+  fi
+
+  local host=$1
+  if [[ -z $host ]]; then
+    print -u2 "usage: goto [-f] <host> [command...]"
+    return 64
+  fi
+  shift
+
+  # Entries every ncurses already carries need no copying. tmux-256color is
+  # deliberately not in this list: it postdates ncurses 6 and is exactly the
+  # kind of entry an older server is missing.
+  case ${TERM:-} in
+    ''|xterm|xterm-256color|screen|screen-256color|vt100|dumb)
+      ssh "$host" "$@"
+      return
+      ;;
+  esac
+
+  local cache=${XDG_CACHE_HOME:-$HOME/.cache}/ssh-terminfo
+  local marker=$cache/$host.$TERM
+
+  if (( force )) || [[ ! -f $marker ]]; then
+    if ssh-terminfo "$host"; then
+      mkdir -p $cache && command touch $marker
+    else
+      # No tic on the far end, or nowhere to write it. Connecting with the real
+      # TERM would draw garbage, so claim one the remote is sure to know.
+      print -u2 "goto: no terminfo on $host — falling back to TERM=xterm-256color"
+      TERM=xterm-256color ssh "$host" "$@"
+      return
+    fi
+  fi
+
+  ssh "$host" "$@"
+}
+
+# Hostname completion, straight from ssh's own completer.
+(( $+functions[compdef] )) && compdef goto=ssh
