@@ -192,6 +192,8 @@ fi
 # Prompt. Config lives at config/starship.toml -> ~/.config/starship.toml.
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
+(( $+commands[wt] )) && eval "$(command wt config shell init zsh)"
+
 # peon-ping quick controls
 if [[ -d $HOME/.claude/hooks/peon-ping ]]; then
   alias peon="bash $HOME/.claude/hooks/peon-ping/peon.sh"
