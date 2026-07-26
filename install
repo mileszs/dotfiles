@@ -96,6 +96,11 @@ have() { command -v "$1" >/dev/null 2>&1; }
 # Each row is  command|apt package|brew package|alternate command name
 # An empty package field means "not available from this package manager".
 # The alternate command covers Debian's renamed binaries (fdfind, batcat).
+#
+# A package can be named here but absent from an older release's archive
+# (starship only landed in Debian trixie and Ubuntu 25.10). apt installs the
+# whole list in one command, so one unknown name would take the rest of the
+# batch down with it — collect_missing drops names apt doesn't recognize.
 # --------------------------------------------------------------------------
 
 CORE_PKGS="
@@ -110,6 +115,7 @@ bat|bat|bat|batcat
 lsd|lsd|lsd|
 tree|tree|tree|
 zoxide|zoxide|zoxide|
+starship|starship|starship|
 delta|git-delta|git-delta|
 jq|jq|jq|
 curl|curl|curl|
@@ -146,6 +152,10 @@ collect_missing() {
     if [ "$field" = apt ]; then pkg="$apt"; else pkg="$brew"; fi
     [ -z "$pkg" ] && continue
     [ "$pkg" = ":" ] && continue
+    if [ "$field" = apt ] && ! apt-cache show "$pkg" >/dev/null 2>&1; then
+      notes+=("apt on this release has no '$pkg' package; install $cmd another way.")
+      continue
+    fi
     MISSING_CMDS="$MISSING_CMDS $cmd"
     MISSING_PKGS="$MISSING_PKGS $pkg"
   done <<EOF
@@ -393,6 +403,13 @@ report "Skipped (something else is already there — use --force to replace):" \
 if [ "${SHELL:-}" != "$(command -v zsh 2>/dev/null)" ] && have zsh; then
   notes+=("Your login shell is ${SHELL:-unset}. To switch to zsh:")
   notes+=("  chsh -s $(command -v zsh)")
+fi
+
+# zshrc falls back to the muse oh-my-zsh theme without this, so it is a
+# cosmetic miss rather than a broken shell — worth a note, not a warning.
+if ! have starship; then
+  notes+=("No starship, so the prompt falls back to the muse oh-my-zsh theme.")
+  notes+=("  curl -sS https://starship.rs/install.sh | sh -s -- -b \"\$HOME/.local/bin\"")
 fi
 
 if [ "$OS" = linux ] && ! have ruby; then
