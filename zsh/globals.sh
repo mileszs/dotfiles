@@ -5,4 +5,5 @@ alias -g L='| less'
 alias -g M='| more'
 alias -g T='| tail'
 alias -g TT='| tail -n20'
-alias -g C='| pbcopy'
+# clipcopy (in ~/.bin) picks pbcopy, wl-copy, xclip, tmux, or OSC 52 as needed.
+alias -g C='| clipcopy'

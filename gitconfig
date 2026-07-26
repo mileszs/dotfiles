@@ -1,8 +1,13 @@
+# Git runs these through a shell, so they can check for delta first. ./install
+# installs it on both platforms, but a box without it should still have working
+# `git log` and `git add -p` rather than "delta: command not found".
+# Note: an unquoted ';' starts a comment in a gitconfig, which silently
+# truncates the value. Hence the surrounding double quotes.
 [core]
-  pager = delta
+  pager = "sh -c 'command -v delta >/dev/null 2>&1 && exec delta || exec ${PAGER:-less}'"
 
 [interactive]
-  diffFilter = delta --color-only
+  diffFilter = "sh -c 'command -v delta >/dev/null 2>&1 && exec delta --color-only || exec cat'"
 
 [delta]
   navigate = true
@@ -40,12 +45,18 @@
   add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 
 [github]
-	user = mileszs
+  user = mileszs
+
 [merge]
   tool = nvimdiff
-[gui]
-	recentrepo = /Users/mileszs/code/healthpro/rms
+
 [pull]
-	rebase = false
+  rebase = false
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
+# Per-machine settings that don't belong in the repo: a work email, a
+# different signing key, credential helpers. Missing file is not an error.
+[include]
+  path = ~/.gitconfig.local

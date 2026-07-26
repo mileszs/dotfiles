@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Print the clipboard to stdout. The counterpart to clipcopy.
+#
+# There is no OSC 52 fallback here: reading the clipboard back over OSC 52 is
+# widely disabled by terminal emulators for good reason, so on a headless box
+# without tmux this simply has nowhere to read from.
+
+set -euo pipefail
+
+if command -v pbpaste >/dev/null 2>&1; then
+  exec pbpaste
+elif [ -n "${WAYLAND_DISPLAY:-}" ] && command -v wl-paste >/dev/null 2>&1; then
+  exec wl-paste --no-newline
+elif [ -n "${DISPLAY:-}" ] && command -v xclip >/dev/null 2>&1; then
+  exec xclip -selection clipboard -out
+elif [ -n "${DISPLAY:-}" ] && command -v xsel >/dev/null 2>&1; then
+  exec xsel --clipboard --output
+elif [ -n "${TMUX:-}" ]; then
+  exec tmux save-buffer -
+else
+  echo "clippaste: no clipboard backend available" >&2
+  exit 1
+fi

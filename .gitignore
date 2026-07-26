@@ -1,4 +1,6 @@
 .DS_Store
 tags
 vim/.netrwhist
+# Per-machine shell config: sourced via ~/.zsh/*.sh, never committed.
 zsh/work.sh
+zsh/local.sh

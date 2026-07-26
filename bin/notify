@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+#   notify <title> <message>
+#
+# Desktop notification where one is possible, terminal bell where it is not.
+# On a headless box the bell is the useful part: it rides the SSH connection
+# back to the terminal you are actually sitting at.
+
+set -euo pipefail
+
+title="${1:-Notification}"
+message="${2:-}"
+
+if command -v terminal-notifier >/dev/null 2>&1; then
+  terminal-notifier -title "$title" -message "$message"
+elif [ "$(uname -s)" = Darwin ] && command -v osascript >/dev/null 2>&1; then
+  osascript -e "display notification \"${message//\"/\\\"}\" with title \"${title//\"/\\\"}\""
+elif { [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; } \
+     && command -v notify-send >/dev/null 2>&1; then
+  notify-send "$title" "$message"
+else
+  printf '\a'
+fi
+
+printf '%s: %s\n' "$title" "$message"

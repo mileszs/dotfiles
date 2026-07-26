@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#
+# Copy stdin to the clipboard, whatever "the clipboard" means here.
+#
+# macOS gets pbcopy, a Linux desktop gets wl-copy or xclip, and a headless box
+# falls back to the tmux buffer or OSC 52 — which hands the bytes to whatever
+# terminal you are SSH'd in from, so yanking on the homelab still lands in the
+# clipboard on the laptop in front of you.
+
+set -euo pipefail
+
+if command -v pbcopy >/dev/null 2>&1; then
+  exec pbcopy
+elif [ -n "${WAYLAND_DISPLAY:-}" ] && command -v wl-copy >/dev/null 2>&1; then
+  exec wl-copy
+elif [ -n "${DISPLAY:-}" ] && command -v xclip >/dev/null 2>&1; then
+  exec xclip -selection clipboard -in
+elif [ -n "${DISPLAY:-}" ] && command -v xsel >/dev/null 2>&1; then
+  exec xsel --clipboard --input
+elif [ -n "${TMUX:-}" ]; then
+  # tmux.conf sets set-clipboard on, so this forwards out to the terminal too.
+  exec tmux load-buffer -
+elif [ -w /dev/tty ]; then
+  # GNU base64 wraps at 76 columns, BSD base64 does not; strip either way.
+  printf '\033]52;c;%s\a' "$(base64 | tr -d '\n')" > /dev/tty
+else
+  echo "clipcopy: no clipboard backend available" >&2
+  exit 1
+fi
